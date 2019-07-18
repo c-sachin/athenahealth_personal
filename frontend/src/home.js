@@ -34,8 +34,8 @@ class Home extends Component {
     return (
       <MDBFooter color="indigo">
         <p className="footer-copyright mb-0 py-3 text-center">
-          &copy; {new Date().getFullYear()} Copyright:{' '}
-          <a href> Agora HealthCare </a>
+          &copy; {new Date().getFullYear()} Copyright{' '}
+          <a href>  </a>
         </p>
       </MDBFooter>
     );
@@ -166,7 +166,7 @@ class Home extends Component {
         <Router>
           <div className="flyout">
             <MDBNavbar color="indigo" dark expand="md" fixed="top" scrolling>
-              <MDBNavbarBrand href="/">Agora</MDBNavbarBrand>
+              <MDBNavbarBrand href="/">Admin</MDBNavbarBrand>
               <MDBNavbarToggler
                 onClick={this.toggleCollapse('mainNavbarCollapse')}
               />
@@ -178,7 +178,7 @@ class Home extends Component {
                 <MDBNavbarNav right>
                   <MDBNavItem>
                     <MDBDropdown>
-                      <MDBDropdownToggle nav caret>
+                      {/* <MDBDropdownToggle nav caret>
                         <i
                           data-toggle="tooltip"
                           data-placement="top"
@@ -187,8 +187,8 @@ class Home extends Component {
                           data-original-title="Add"
                         />{' '}
                         Add
-                      </MDBDropdownToggle>
-                      <MDBDropdownMenu>
+                      </MDBDropdownToggle> */}
+                      {/* <MDBDropdownMenu>
                         <MDBDropdownItem href="/PatientScreening">
                           <i className="fas fa-search-plus fa-fw" /> Patient
                           Screenings
@@ -203,11 +203,11 @@ class Home extends Component {
                           <i className="fas fa-chart-line fa-fw" /> Before /
                           After Analysis
                         </MDBDropdownItem>
-                      </MDBDropdownMenu>
+                      </MDBDropdownMenu> */}
                     </MDBDropdown>
-                  </MDBNavItem>
+                  {/* </MDBNavItem>
                   {this.renderMasterNavs(userType)}
-                  <MDBNavItem>
+                  <MDBNavItem> */}
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret>
                         <span className="mr-2">
@@ -215,7 +215,7 @@ class Home extends Component {
                         </span>
                       </MDBDropdownToggle>
                       <MDBDropdownMenu>
-                        {this.renderChangePassword(userType)}
+                        {/* {this.renderChangePassword(userType)} */}
                         <MDBDropdownItem href="/logout">
                           <i className="fas fa-sign-out-alt fa-fw" /> Logout
                         </MDBDropdownItem>
@@ -231,8 +231,8 @@ class Home extends Component {
             </main>
             <MDBFooter color="indigo">
               <p className="footer-copyright mb-0 py-3 text-center">
-                &copy; {new Date().getFullYear()} Copyright:{' '}
-                <span> Agora HealthCare </span>
+                &copy; {new Date().getFullYear()} Copyright{' '}
+                <span>  </span>
               </p>
             </MDBFooter>
           </div>

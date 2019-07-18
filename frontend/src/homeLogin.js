@@ -56,8 +56,8 @@ class HomeLogin extends Component {
             </main>
             <MDBFooter color="indigo">
               <p className="footer-copyright mb-0 py-3 text-center">
-                &copy; {new Date().getFullYear()} Copyright:{' '}
-                <a href> Agora HealthCare </a>
+                &copy; {new Date().getFullYear()} Copyright{' '}
+                <a href>  </a>
               </p>
             </MDBFooter>
           </div>
@@ -68,7 +68,7 @@ class HomeLogin extends Component {
         <Router>
           <div className="flyout">
             <MDBNavbar color="indigo" dark expand="md" fixed="top" scrolling>
-              <MDBNavbarBrand href="/">Agora</MDBNavbarBrand>
+              <MDBNavbarBrand href="/">Admin</MDBNavbarBrand>
               <MDBNavbarToggler
                 onClick={this.toggleCollapse('mainNavbarCollapse')}
               />
@@ -84,8 +84,8 @@ class HomeLogin extends Component {
             </main>
             <MDBFooter color="indigo">
               <p className="footer-copyright mb-0 py-3 text-center">
-                &copy; {new Date().getFullYear()} Copyright:{' '}
-                <a href> Agora HealthCare </a>
+                &copy; {new Date().getFullYear()} Copyright{' '}
+                <a href> </a>
               </p>
             </MDBFooter>
           </div>
