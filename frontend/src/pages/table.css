@@ -1,0 +1,24 @@
+tbody + thead{
+    display: none;
+  }
+ .close > span{
+    display: block;
+    color:black;
+ }
+ li.page-item{
+    display:none
+ }
+
+ li.page-item:nth-child(2),
+ li.page-item:nth-child(1),
+ li.page-item:nth-last-child(2),li.page-item:nth-last-child(1),li.active.page-item{
+   display:block !important
+}
+.btn.btn-sm{    padding: 0.5rem 0.6rem;}
+table.table th, table.table td{    padding: .5rem;}
+.react-tabs__tab--selected{
+   background:#33b5e5 !important;
+   border-color: #aaa ;
+   color: white !important;
+   border-radius: 5px 5px 0 0;
+}
