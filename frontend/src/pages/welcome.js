@@ -22,11 +22,11 @@ class Welcome extends React.Component {
             >
               <MDBCardBody>
                 <h2 className="h2-responsive mb-4 text-center">
-                  <strong>AGORA Healthcare</strong>
+                  <strong>AthenaHealth </strong>
                 </h2>
                 <p className="pb-4 text-center">
                   <i className="fas fa-info-circle fa-fw" /> This application
-                  shows patient screenings
+                  helps in getting user details for survey
                 </p>
                 <MDBRow className="d-flex flex-row justify-content-center row" />
               </MDBCardBody>
