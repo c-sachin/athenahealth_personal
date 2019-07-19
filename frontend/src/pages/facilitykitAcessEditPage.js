@@ -21,23 +21,21 @@ class FacilitykitAcessEditPage extends Component {
     facilityId = this.props.match.params.id;
     this.state = {
       msg: [{ msgLoading: '', msgError: '' }],
-      facilityKitServer: '',
-      facilityKitPort: '',
+      facilityPracticeid: '',
+      facilityDepartmentid: '',
       facilityId: '',
-      facilityKitUserid: '',
-      facilityFhirSecret: '',
-      facilityKitPassword: '',
+      facilitySurveyToken: '',
+      facilitySurveyCampaignid: '',
+      facilitySecretid: '',
       facilityFhirId: '',
-      facilityFhirHash: '',
       response: '',
-      facilityKitServerErr: '',
+      facilityPracticeidErr: '',
       facilityIdErr: '',
-      facilityKitUseridErr: '',
-      facilityFhirSecretErr: '',
-      facilityKitPasswordErr: '',
+      facilitySurveyTokenErr: '',
+      facilitySurveyCampaignidErr: '',
+      facilitySecretidErr: '',
       facilityFhirIdErr: '',
-      facilityFhirHashErr: '',
-      facilityKitPortErr: '',
+      facilityDepartmentidErr: '',
       data: [],
       alert: null,
     };
@@ -76,14 +74,13 @@ class FacilitykitAcessEditPage extends Component {
       .then(response => {
         let data = response.data.result[0];
         this.setState({
-          facilityKitServer: data.facility_kit_server,
-          facilityKitPort: data.facility_kit_port,
+          facilityPracticeid: data.facility_practice_id,
+          facilityDepartmentid: data.facility_department_id,
           facilityId: data.f_facility_id,
-          facilityKitUserid: data.facility_kit_userid,
-          facilityFhirSecret: data.facility_fhir_secret,
-          facilityKitPassword: data.facility_kit_password,
+          facilitySurveyToken: data.facility_survey_token,
+          facilitySurveyCampaignid: data.facility_survey_campaign_id,
+          facilitySecretid: data.facility_fhir_secret,
           facilityFhirId: data.facility_fhir_id,
-          facilityFhirHash: data.facility_fhir_hash,
           msg: this.msgBlank,
         });
       })
@@ -96,38 +93,29 @@ class FacilitykitAcessEditPage extends Component {
   }
 
   validateName = () => {
-    const { facilityKitServer } = this.state;
+    const { facilityPracticeid } = this.state;
     const { facilityId } = this.state;
-    const { facilityKitUserid } = this.state;
-    const { facilityFhirSecret } = this.state;
-    const { facilityKitPassword } = this.state;
+    const { facilityDepartmentid } = this.state;
+    const { facilitySurveyToken } = this.state;
+    const { facilitySurveyCampaignid } = this.state;
+    const { facilitySecretid } = this.state;
     const { facilityFhirId } = this.state;
-    const { facilityFhirHash } = this.state;
-    const { facilityKitPort } = this.state;
     this.setState({
-      facilityKitServerErr:
-        facilityKitServer.length > 3
-          ? null
-          : 'Facility kit Server Name should have length more than 3',
-      facilityIdErr: facilityId.length > 3 ? null : 'Please Select Facility Id',
-      facilityKitPortErr:
-        facilityKitPort.length > 3 ? null : 'Please Enter Port number',
-      facilityKitUseridErr:
-        facilityKitUserid.length > 3
-          ? null
-          : 'Please Enter Facility kit User id ',
-      facilityFhirSecretErr:
-        facilityFhirSecret.length > 3
-          ? null
-          : 'Please Enter Facility FHIR secret id ',
-      facilityKitPasswordErr:
-        facilityKitPassword.length > 3
-          ? null
-          : 'Please Enter Facility kit password',
+      facilityPracticeidErr:
+
+        facilityPracticeid.length > 3 ? null : 'Please Enter Practice Id',
+      facilityIdErr: 
+        facilityId.length > 3 ? null : 'Please Select Facility Id',
+      facilityDepartmentidErr:
+        facilityDepartmentid.length > 0 ? null : 'Please Enter Department Id',
+      facilitySurveyTokenErr:
+        facilitySurveyToken.length > 3 ? null : 'Please Enter Survey Token ',
+      facilitySurveyCampaignidErr:
+        facilitySurveyCampaignid.length > 3 ? null : 'Please Enter Survey Campaign id ',
+      facilitySecretidErr:
+        facilitySecretid.length > 3 ? null : 'Please Enter Secret Key',
       facilityFhirIdErr:
-        facilityFhirId.length > 3 ? null : 'Please Enter Facility FHIR id  ',
-      facilityFhirHashErr:
-        facilityFhirHash.length > 3 ? null : 'Please Enter Facility FHIR hash ',
+        facilityFhirId.length > 3 ? null : 'Please Enter Client id  ',
     });
   };
 
@@ -139,14 +127,13 @@ class FacilitykitAcessEditPage extends Component {
       msg: this.msgUpdate,
     });
     const obj = {
-      facilityKitServer: this.state.facilityKitServer,
+      facilityPracticeid: this.state.facilityPracticeid,
       facilityId: facilityId,
-      facilityKitPort: this.state.facilityKitPort,
-      facilityKitUserid: this.state.facilityKitUserid,
-      facilityFhirSecret: this.state.facilityFhirSecret,
-      facilityKitPassword: this.state.facilityKitPassword,
+      facilityDepartmentid: this.state.facilityDepartmentid,
+      facilitySurveyToken: this.state.facilitySurveyToken,
+      facilitySurveyCampaignid: this.state.facilitySurveyCampaignid,
+      facilitySecretid: this.state.facilitySecretid,
       facilityFhirId: this.state.facilityFhirId,
-      facilityFhirHash: this.state.facilityFhirHash,
     };
 
     var token = Cookies.get('token');
@@ -211,7 +198,7 @@ class FacilitykitAcessEditPage extends Component {
           <MDBCol md="12">
             <MDBCard>
               <MDBCardHeader color="" tag="h3">
-                Edit Facility Kit Access
+                Edit Facility Settings
                 <MDBNavLink
                   class="btn btn-info float-right btn-sm"
                   to="/facilityPage"
@@ -248,48 +235,28 @@ class FacilitykitAcessEditPage extends Component {
                   >
                     <MDBRow>
                       <MDBCol md="12" className="mb-12">
-                        <h5>Facility Kit</h5> <hr />{' '}
+                        <h5>EHR Setting </h5> <hr />{' '}
                       </MDBCol>
                       <MDBCol md="4" className="mb-3">
                         <label
                           htmlFor="defaultFormRegisterNameEx"
                           className="grey-text"
                         >
-                          Server name{' '}
+                          {' '}
+                          Practice Id{' '}
                         </label>
                         <input
-                          value={this.state.facilityKitServer}
-                          name="facilityKitServer"
+                          value={this.state.facilityPracticeid}
+                          name="facilityPracticeid"
                           onChange={this.changeHandler}
                           type="text"
                           id="defaultFormRegisterNameEx"
                           className={`form-control ${
-                            this.state.facilityKitServerErr ? 'is-invalid' : ''
+                            this.state.facilityPracticeidErr ? 'is-invalid' : ''
                           }`}
                         />
                         <div className="invalid-feedback">
-                          {this.state.facilityKitServerErr}
-                        </div>
-                      </MDBCol>
-                      <MDBCol md="4" className="mb-3">
-                        <label
-                          htmlFor="defaultFormRegisterNameEx"
-                          className="grey-text"
-                        >
-                          Port number{' '}
-                        </label>
-                        <input
-                          value={this.state.facilityKitPort}
-                          name="facilityKitPort"
-                          onChange={this.changeHandler}
-                          type="text"
-                          id="defaultFormRegisterNameEx"
-                          className={`form-control ${
-                            this.state.facilityKitPortErr ? 'is-invalid' : ''
-                          }`}
-                        />
-                        <div className="invalid-feedback">
-                          {this.state.facilityKitPortErr}
+                          {this.state.facilityPracticeidErr}
                         </div>
                       </MDBCol>
                       <MDBCol md="4" className="mb-3">
@@ -298,20 +265,20 @@ class FacilitykitAcessEditPage extends Component {
                           className="grey-text"
                         >
                           {' '}
-                          User Name{' '}
+                          Department Id{' '}
                         </label>
                         <input
-                          value={this.state.facilityKitUserid}
-                          name="facilityKitUserid"
+                          value={this.state.facilityDepartmentid}
+                          name="facilityDepartmentid"
                           onChange={this.changeHandler}
                           type="text"
                           id="defaultFormRegisterNameEx"
                           className={`form-control ${
-                            this.state.facilityKitUseridErr ? 'is-invalid' : ''
+                            this.state.facilityDepartmentidErr ? 'is-invalid' : ''
                           }`}
                         />
                         <div className="invalid-feedback">
-                          {this.state.facilityKitUseridErr}
+                          {this.state.facilityDepartmentidErr}
                         </div>
                       </MDBCol>
                       <MDBCol md="4" className="mb-3">
@@ -320,49 +287,20 @@ class FacilitykitAcessEditPage extends Component {
                           className="grey-text"
                         >
                           {' '}
-                          Password
+                          Survey token{' '}
                         </label>
                         <input
-                          value={this.state.facilityKitPassword}
-                          name="facilityKitPassword"
+                          value={this.state.facilitySurveyToken}
+                          name="facilitySurveyToken"
                           onChange={this.changeHandler}
                           type="text"
                           id="defaultFormRegisterNameEx"
                           className={`form-control ${
-                            this.state.facilityKitPasswordErr
-                              ? 'is-invalid'
-                              : ''
+                            this.state.facilitySurveyTokenErr ? 'is-invalid' : ''
                           }`}
                         />
                         <div className="invalid-feedback">
-                          {this.state.facilityKitPasswordErr}
-                        </div>
-                      </MDBCol>
-                    </MDBRow>
-                    <br />
-                    <MDBRow>
-                      <MDBCol md="12" className="mb-12">
-                        <h5>Facility Fhir</h5> <hr />{' '}
-                      </MDBCol>
-                      <MDBCol md="4" className="mb-3">
-                        <label
-                          htmlFor="defaultFormRegisterNameEx"
-                          className="grey-text"
-                        >
-                          Secret id{' '}
-                        </label>
-                        <textarea
-                          value={this.state.facilityFhirSecret}
-                          name="facilityFhirSecret"
-                          onChange={this.changeHandler}
-                          type="text"
-                          id="defaultFormRegisterNameEx"
-                          className={`form-control ${
-                            this.state.facilityFhirSecretErr ? 'is-invalid' : ''
-                          }`}
-                        />
-                        <div className="invalid-feedback">
-                          {this.state.facilityFhirSecretErr}
+                          {this.state.facilitySurveyTokenErr}
                         </div>
                       </MDBCol>
 
@@ -371,9 +309,38 @@ class FacilitykitAcessEditPage extends Component {
                           htmlFor="defaultFormRegisterNameEx"
                           className="grey-text"
                         >
+                          {' '}
+                          Survey Campaign Id{' '}
+                        </label>
+                        <input
+                          value={this.state.facilitySurveyCampaignid}
+                          name="facilitySurveyCampaignid"
+                          onChange={this.changeHandler}
+                          type="text"
+                          id="defaultFormRegisterNameEx"
+                          className={`form-control ${
+                            this.state.facilitySurveyCampaignidErr ? 'is-invalid' : ''
+                          }`}
+                        />
+                        <div className="invalid-feedback">
+                          {this.state.facilitySurveyCampaignidErr}
+                        </div>
+                      </MDBCol>
+                    </MDBRow>
+                    <br />
+                    <MDBRow>
+                      <MDBCol md="12" className="mb-12">
+                        <h5>EHR FHIR</h5> <hr />{' '}
+                      </MDBCol>
+                      <MDBCol md="4" className="mb-3">
+                        <label
+                          htmlFor="defaultFormRegisterNameEx"
+                          className="grey-text"
+                        >
+                          {' '}
                           Client Id{' '}
                         </label>
-                        <textarea
+                        <input
                           value={this.state.facilityFhirId}
                           name="facilityFhirId"
                           onChange={this.changeHandler}
@@ -392,20 +359,23 @@ class FacilitykitAcessEditPage extends Component {
                           htmlFor="defaultFormRegisterNameEx"
                           className="grey-text"
                         >
-                          Hash{' '}
+                          {' '}
+                          Secret Id
                         </label>
-                        <textarea
-                          value={this.state.facilityFhirHash}
-                          name="facilityFhirHash"
+                        <input
+                          value={this.state.facilitySecretid}
+                          name="facilitySecretid"
                           onChange={this.changeHandler}
                           type="text"
                           id="defaultFormRegisterNameEx"
                           className={`form-control ${
-                            this.state.facilityFhirHashErr ? 'is-invalid' : ''
+                            this.state.facilitySecretidErr
+                              ? 'is-invalid'
+                              : ''
                           }`}
                         />
                         <div className="invalid-feedback">
-                          {this.state.facilityFhirHashErr}
+                          {this.state.facilitySecretidErr}
                         </div>
                       </MDBCol>
                     </MDBRow>

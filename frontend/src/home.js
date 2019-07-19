@@ -205,9 +205,9 @@ class Home extends Component {
                         </MDBDropdownItem>
                       </MDBDropdownMenu> */}
                     </MDBDropdown>
-                  {/* </MDBNavItem>
+                  </MDBNavItem>
                   {this.renderMasterNavs(userType)}
-                  <MDBNavItem> */}
+                  <MDBNavItem>
                     <MDBDropdown>
                       <MDBDropdownToggle nav caret>
                         <span className="mr-2">

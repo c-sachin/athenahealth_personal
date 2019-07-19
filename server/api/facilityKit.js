@@ -6,17 +6,16 @@ const dbMysql = require("../db/dbMysql");
 const facilityKitModel = require("../models/facilityKit");
 
 router.post('/FacilityKitAccessCreate', async (req, res) => {
-    if (req.body.facilityKitServer == null || req.body.facilityKitServer == "" || req.body.facility_kit_port == "" || req.body.facility_kit_userid == "" || req.body.facility_kit_password == "" || req.body.facility_fhir_secret == "" || req.body.facility_fhir_id == "" || req.body.facility_fhir_hash == "") {
+    if (req.body.facilityPracticeid == null || req.body.facilityPracticeid == "" || req.body.facilityDepartmentid == "" || req.body.facilitySurveyToken == "" || req.body.facilitySurveyCampaignid == "" || req.body.facilitySecretid == "" || req.body.facilityFhirId == "") {
         return await helpers.generateApiResponse(res, 'Please enter all required fields.', 400, []);
     }
     var post = {
-        facility_kit_server: req.body.facilityKitServer,
-        facility_kit_port: req.body.facilityKitPort,
-        facility_kit_userid: req.body.facilityKitUserid,
-        facility_fhir_secret: req.body.facilityFhirSecret,
-        facility_kit_password: req.body.facilityKitPassword,
+        facility_practice_id: req.body.facilityPracticeid,
+        facility_department_id: req.body.facilityDepartmentid,
+        facility_survey_token: req.body.facilitySurveyToken,
+        facility_survey_campaign_id: req.body.facilitySurveyCampaignid,
+        facility_fhir_secret: req.body.facilitySecretid,
         facility_fhir_id: req.body.facilityFhirId,
-        facility_fhir_hash: req.body.facilityFhirHash,
         f_facility_id: req.body.facilityId
     };
     var insertFacilityKitAccessQuery = facilityKitModel.insertFacilityKitAccess();
@@ -26,7 +25,7 @@ router.post('/FacilityKitAccessCreate', async (req, res) => {
         return await helpers.generateApiResponse(res, 'Error:something went wrong.', 400, []);
     }
     
-    return await helpers.generateApiResponse(res, 'Facility access kit created successfully', 200, []);
+    return await helpers.generateApiResponse(res, 'Facility setting created successfully', 200, []);
 });
 
 router.get('/FacilityKitAccess', async (req, res) => {
@@ -54,13 +53,12 @@ router.post('/FacilityKitAccessEdit/:id', async (req, res) => {
 router.post('/FacilityKitAccessUpdate/:id', async (req, res) => {
     let id = req.params.id;
     var post = {
-        facility_kit_server: req.body.facilityKitServer,
-        facility_kit_port: req.body.facilityKitPort,
-        facility_kit_userid: req.body.facilityKitUserid,
-        facility_fhir_secret: req.body.facilityFhirSecret,
-        facility_kit_password: req.body.facilityKitPassword,
+        facility_practice_id: req.body.facilityPracticeid,
+        facility_department_id: req.body.facilityDepartmentid,
+        facility_survey_token: req.body.facilitySurveyToken,
+        facility_survey_campaign_id: req.body.facilitySurveyCampaignid,
+        facility_fhir_secret: req.body.facilitySecretid,
         facility_fhir_id: req.body.facilityFhirId,
-        facility_fhir_hash: req.body.facilityFhirHash,
         f_facility_id: req.body.facilityId
     };
     let query = facilityKitModel.getFacilityKitUpdate(id)
@@ -70,7 +68,7 @@ router.post('/FacilityKitAccessUpdate/:id', async (req, res) => {
         return await helpers.generateApiResponse(res, 'Error: Something went wrong.', 400, []);
     }
     
-    return await helpers.generateApiResponse(res, 'Facility kit updated successfully', 200, []);
+    return await helpers.generateApiResponse(res, 'Facility settings updated successfully', 200, []);
 });
 
 router.post('/FacilityKitAccessDelete/:id', async (req, res) => {
