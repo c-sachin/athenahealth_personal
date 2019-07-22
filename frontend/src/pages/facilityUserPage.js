@@ -74,19 +74,19 @@ class FacilityUserPage extends Component {
           <MDBCol md="12">
             <MDBCard>
               <MDBCardHeader color="" tag="h3">
-                Facility Users
+                Appointments
                 <Link
                   class="btn btn-info float-right btn-sm"
                   to={'/FacilityPage'}
                 >
                   <i class="fas fa-undo fa-fw" /> Back
                 </Link>
-                <Link
+                {/* <Link
                   class="btn btn-primary float-right btn-sm"
                   to={'/facilityUserCreate/' + facilityId}
                 >
                   <i class="fas fa-plus-circle fa-fw" /> Create Facility User
-                </Link>
+                </Link> */}
               </MDBCardHeader>
               <MDBCardBody>
                 {this.state.msg[0].msgLoading !== '' ? (
@@ -109,10 +109,9 @@ class FacilityUserPage extends Component {
                 <MDBTable>
                   <MDBTableHead>
                     <tr>
-                      <th>Facility User Name</th>
-                      <th>Facility Id</th>
-                      <th>Facility Epic user id</th>
-                      <th>Action</th>
+                      <th>Patient Name</th>
+                      <th>Mobile Number</th>
+                      <th>Email ID</th>
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>{this.facilityUserRow()}</MDBTableBody>

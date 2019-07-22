@@ -3,7 +3,7 @@ class FacilityKit {
         let sql = 'SELECT * FROM m_facility_settings WHERE f_facility_id =' + id; //specific facility kit
         if (flag == 0) {
             // all facilities kit
-            sql = 'SELECT * FROM m_facility_settings';
+            sql = 'SELECT * FROM m_facility_settings where facility_is_deleted = 0';
         }
         return sql;
     }

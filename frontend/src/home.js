@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import logo from './advantia_logo.png';
 import {
   MDBNavbar,
   MDBNavbarBrand,
@@ -166,7 +167,8 @@ class Home extends Component {
         <Router>
           <div className="flyout">
             <MDBNavbar color="indigo" dark expand="md" fixed="top" scrolling>
-              <MDBNavbarBrand href="/">Admin</MDBNavbarBrand>
+            <MDBNavbarBrand href="/"><img width="20%" src={logo} alt="logo" /></MDBNavbarBrand>
+              {/* <MDBNavbarBrand href="/">Admin</MDBNavbarBrand> */}
               <MDBNavbarToggler
                 onClick={this.toggleCollapse('mainNavbarCollapse')}
               />

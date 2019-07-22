@@ -19,6 +19,8 @@ const gender = require('./api/master/gender');
 const maritalStatus = require('./api/master/maritalStatus');
 const race = require('./api/master/race');
 const imaging = require('./api/master/imaging');
+const getAppointments = require('./api/getAppointments');
+const sendSurvey = require('./api/sendSurvey');
 
 const app = express();
 app.use(cookieParser());
@@ -42,6 +44,8 @@ app.use('/api/parameterlist', parameterList);
 app.use('/api/before-after-analysis', beforeAfterAnalysis);
 app.use('/api/dailyquery', dailyQuery);
 app.use('/api/chartReview', chartReview);
+app.use('/api/getAppointments', getAppointments);
+app.use('/api/sendSurvey', sendSurvey);
 
 app.use('/api/gender', gender);
 app.use('/api/maritalStatus', maritalStatus);

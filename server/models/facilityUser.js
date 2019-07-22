@@ -1,10 +1,10 @@
 class FacilityUser {
 
     static getFacilityUserList(flag = 1, id = null) {
-        let sql = 'SELECT * FROM m_facility_users  WHERE ?'; // specific facility users
+        let sql = 'SELECT * FROM m_appointment  WHERE ?'; // specific facility users
         if (flag == 0) {
             // all facilities users
-            sql = 'SELECT * FROM m_facility_users where is_deleted = 0 and f_facility_id = ' + id;
+            sql = 'SELECT * FROM m_appointment where is_deleted = 0 and f_facility_id = ' + id;
         }
         return sql;
     }
