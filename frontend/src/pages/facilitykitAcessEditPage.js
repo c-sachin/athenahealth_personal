@@ -51,13 +51,7 @@ class FacilitykitAcessEditPage extends Component {
     this.setState({
       msg: this.msg,
     });
-    axios
-      .get(`${process.env.REACT_APP_API_BASE_URL}patients/Facilities`)
-      .then(res => {
-        const data = res.data;
-        this.setState({ data, msg: this.msgBlank });
-      });
-
+    
     axios
       .post(
         `${

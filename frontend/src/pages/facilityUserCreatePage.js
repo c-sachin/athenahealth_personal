@@ -105,14 +105,6 @@ class FacilityUserCreatePage extends Component {
     window.location.href = `/facilityUser/` + facilityId;
   }
 
-  componentDidMount() {
-    axios
-      .get(`${process.env.REACT_APP_API_BASE_URL}patients/Facilities`)
-      .then(res => {
-        const data = res.data;
-        this.setState({ data });
-      });
-  }
   changeHandler = event => {
     this.setState({ [event.target.name]: event.target.value }, () => {
       this.validateName();
