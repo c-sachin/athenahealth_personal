@@ -9,6 +9,7 @@ class ParameterRowEdit extends Component {
   }
 
   render() {
+    console.log('hgfhdfgdfg');
     let idx = this.props.data.id;
     let val = this.props.data.value;
     let parameterConditionId = '';

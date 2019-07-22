@@ -142,22 +142,6 @@ class FacilitykitAcessPage extends Component {
     window.location.href = '/facilityPage';
   }
 
-  componentDidMount() {
-    let _self = this;
-    axios
-      .get(`${process.env.REACT_APP_API_BASE_URL}patients/Facilities`)
-      .then(res => {
-        const data = res.data;
-        _self.setState({ data });
-      })
-      .catch(err => {
-        let msgErr = helpers.errMessage(err);
-        _self.setState({
-          msg: msgErr,
-        });
-      });
-  }
-
   changeHandler = event => {
     this.setState({ [event.target.name]: event.target.value }, () => {
       this.validateName();
