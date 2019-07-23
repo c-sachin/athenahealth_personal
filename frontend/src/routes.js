@@ -12,7 +12,7 @@ import FacilityPage from './pages/facilityPage';
 import FacilityCreatePage from './pages/facilityCreatePage';
 import FacilityEditPage from './pages/facilityEditPage';
 import FacilityUserCreatePage from './pages/facilityUserCreatePage';
-import FacilityUserPage from './pages/facilityUserPage';
+import facilityAppointmentPage from './pages/facilityAppointmentPage';
 import FacilityUserEditPage from './pages/facilityUserEditPage';
 import FacilitykitAcessPage from './pages/facilitykitAcessPage';
 import FacilityKitListPage from './pages/facilityKitListPage';
@@ -62,17 +62,12 @@ class Routes extends React.Component {
         <Route exact path="/facilityCreate" component={FacilityCreatePage} />
         <Route exact path="/FacilityPage" component={FacilityPage} />
         <Route exact path="/edit/:id" component={FacilityEditPage} />
-        <Route exact path="/facilityUserCreate/:id" component={FacilityUserCreatePage}
-        />
-        <Route exact path="/facilityuseredit/:facility_id/:facility_user_id" component={FacilityUserEditPage}
-        />
-        <Route exact path="/facilityUser/:id" component={FacilityUserPage} />
-        <Route exact path="/FacilitykitAcessPage/:id" component={FacilitykitAcessPage}
-        />
-        <Route exact path="/facilityKitListPage" component={FacilityKitListPage}
-        />
-        <Route exact path="/editkitAcess/:id" component={FacilitykitAcessEditPage}
-        />
+        <Route exact path="/facilityUserCreate/:id" component={FacilityUserCreatePage}/>
+        <Route exact path="/facilityuseredit/:facility_id/:facility_user_id" component={FacilityUserEditPage}/>
+        <Route exact path="/facilityAppointment/:id" component={facilityAppointmentPage} />
+        <Route exact path="/FacilitykitAcessPage/:id" component={FacilitykitAcessPage}/>
+        <Route exact path="/facilityKitListPage" component={FacilityKitListPage}/>
+        <Route exact path="/editkitAcess/:id" component={FacilitykitAcessEditPage}/>
         {/* <Route exact path="/patientScreening" component={PatientScreening} />
         <Route
           exact
@@ -151,7 +146,7 @@ class Routes extends React.Component {
                     >
                       <MDBCardBody>
                         <h2 className="h2-responsive mb-4 text-center">
-                          <strong>AGORA Healthcare</strong>
+                          <strong></strong>
                         </h2>
                       </MDBCardBody>
                       <MDBRow className="d-flex flex-row justify-content-center row">

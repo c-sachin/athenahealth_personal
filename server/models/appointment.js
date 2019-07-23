@@ -22,8 +22,18 @@ class Appointment {
         return sql;
     }
 
+    static facilityAppointment(facilityId) {
+        let sql = 'SELECT `appointment_id`, `f_facility_id`, `practice_id`, `patient_id`, `patient_fname`, `patient_lname`, `patient_email`, `patient_mobileno`, `patient_homephone`, `patient_address1`, `patient_city`, `patient_zip`, `patient_sex`, `patient_state`, `patient_country`, `appointmentid`, DATE_FORMAT(`appointment_date`,"%d-%m-%Y") AS `appointment_date`, `appointment_encounter_id`, `appointment_type`, `appointment_starttime`, `appointment_survey_send_status`, `appointment_survey_send_message`, `added_at`, `updated_at`, `is_deleted` from  m_appointment where f_facility_id = ' + facilityId
+        return sql;
+    }
+
     static insertAppointment() {
         let sql = 'INSERT INTO m_appointment SET ?';
+        return sql;
+    }
+
+    static appointmentToSurvey() {
+        let sql = 'SELECT a.f_facility_id, appointment_id,patient_fname,patient_lname,patient_email,facility_survey_token,facility_survey_campaign_id FROM m_facility_settings b, m_appointment a WHERE appointment_survey_send_status = 1 AND a.f_facility_id = b.f_facility_id'
         return sql;
     }
 }

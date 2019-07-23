@@ -8,6 +8,11 @@ const axios = require("axios");
 const moment = require("moment");
 
 router.get("/get", async (req, res) => {
+//var yesterday = new Date(); // Today!
+//yesterday.setDate(yesterday.getDate() - 1); // Yesterday!
+var yesterday = moment().subtract(1, 'days');
+yesterday = yesterday.format("MM/DD/YYYY");
+//return await helpers.generateApiResponse(res, 'Success: Test success.', 200, yesterday);
 var facilityQuery = facilityKitModel.getFacilityKit(0, 0);
 var [facilityRows] = await dbMysql.execute(facilityQuery);
 var f_facility_id = facilityRows[0]['f_facility_id'];
@@ -138,6 +143,7 @@ function appointments() {
                     appointmentid:appointmentsArr[i].appointmentid,
                     //appointment_date: appointmentsArr[i].date,
                     appointment_date: moment(appointmentsArr[i].date).format('YYYY-MM-DD'),
+					
                     appointment_encounter_id:appointmentsArr[i].encounterid,
                     appointment_type:appointmentsArr[i].appointmenttype,
                     appointment_starttime:appointmentsArr[i].starttime
@@ -159,7 +165,7 @@ async function insertAppointmentData(post){
 
 // This is one way of forcing the call order
 function main() {
-	var calls = [authentication, appointments, endCall]
+	var calls = [authentication, appointments]
 	signal.on('next', function() {
 		var nextCall = calls.shift()
 		if (nextCall) {
@@ -167,10 +173,6 @@ function main() {
 		}
 	})
 	signal.emit('next')
-}
-
-async function endCall(){
-    return await helpers.generateApiResponse(res, 'Appointment inerted Successfully');
 }
 
 main()
