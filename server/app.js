@@ -22,7 +22,6 @@ app.use(
 );
 
 app.use('/', auth);
-
 app.use('/api/facilityAppointments', facilityAppointments);
 app.use('/api/facilities', facilities);
 app.use('/api/facilityKit', facilityKit);
