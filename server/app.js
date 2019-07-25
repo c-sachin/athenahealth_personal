@@ -4,6 +4,7 @@ const bodyparser = require('body-parser');
 const cors = require('cors');
 const auth = require('./api/auth');
 const facilityAppointments = require('./api/facilityAppointments');
+const facilityDepartments = require('./api/facilityDepartments');
 const facilities = require('./api/facilities');
 const facilityKit = require('./api/facilityKit');
 const Login = require('./api/login');
@@ -23,6 +24,7 @@ app.use(
 
 app.use('/', auth);
 app.use('/api/facilityAppointments', facilityAppointments);
+app.use('/api/facilityDepartments', facilityDepartments);
 app.use('/api/facilities', facilities);
 app.use('/api/facilityKit', facilityKit);
 app.use('/api/Login', Login);

@@ -6,17 +6,18 @@ import {
   MDBTableBody,
   MDBCardHeader,
   MDBContainer,
+  MDBBtn,
   MDBRow,
   MDBCol,
   MDBCard,
   MDBCardBody,
 } from 'mdbreact';
 import axios from 'axios';
-import FacilityAppointmentRow from './facilityAppointmentRow';
+import FacilityDepartmentRow from './facilityDepartmentRow';
 import Cookies from 'js-cookie';
 import helpers from '../components/helper';
 let facilityId = '';
-class FacilityAppointmentPage extends Component {
+class FacilityDepartmentPage extends Component {
   constructor(props) {
     super(props);
     facilityId = this.props.match.params.id;
@@ -26,6 +27,7 @@ class FacilityAppointmentPage extends Component {
     };
     this.msgBlank = helpers.setMsg('', '');
     this.msg = helpers.setMsg('Fetching data...', '');
+    this.msgUpdate = helpers.setMsg('Updating data...', '');
   }
   componentDidMount() {
     const obj = {
@@ -37,11 +39,10 @@ class FacilityAppointmentPage extends Component {
     let _self = this;
     axios
       .post(
-        `${process.env.REACT_APP_API_BASE_URL}facilityAppointments/facilityAppointments`,
+        `${process.env.REACT_APP_API_BASE_URL}facilityDepartments/FacilityDepartments`,
         obj
       )
       .then(res => {
-        
         const data = res.data.result;
         this.setState({ data, msg: this.msgBlank });
       })
@@ -52,10 +53,35 @@ class FacilityAppointmentPage extends Component {
         });
       });
   }
-  facilityAppointmentRow() {
-    return this.state.data.map(function(object, i) {
-      return <FacilityAppointmentRow obj={object} key={i} />;
+  facilityDepartmentRow() {
+      return this.state.data.map(function(object, i) {
+      return <FacilityDepartmentRow obj={object} key={i} />;
     });
+  }
+
+   fatchDepartments = () => {
+    const obj = {
+      facility_id: facilityId,
+    };
+    this.setState({
+      msg: this.msg,
+    });
+    axios
+      .post(
+        `${process.env.REACT_APP_API_BASE_URL}facilityDepartments/FatchDepartments`,
+          obj
+      )
+      .then(res => {
+        this.setState({ msg: this.msgBlank });
+        window.location.reload()
+      })
+      .catch(err => {
+        let msgErr = helpers.errMessage(err);
+        console.log(msgErr);
+        this.setState({
+          msg: msgErr,
+        });
+      });
   }
 
   render() {
@@ -75,13 +101,20 @@ class FacilityAppointmentPage extends Component {
           <MDBCol md="12">
             <MDBCard>
               <MDBCardHeader color="" tag="h3">
-                Appointments Details
+                Departments
                 <Link
-                  class="btn btn-info float-right btn-sm"
+                  className="btn btn-info float-right btn-sm"
                   to={'/FacilityPage'}
                 >
-                  <i class="fas fa-undo fa-fw" /> Back
+                  <i className="fas fa-undo fa-fw" /> Back
                 </Link>
+                <MDBBtn
+                      className="btn btn-primary float-right btn-sm"
+                      type="button"
+                      onClick={this.fatchDepartments}
+                    >
+                      Fetch Departments
+                </MDBBtn>
               </MDBCardHeader>
               <MDBCardBody>
                 {this.state.msg[0].msgLoading !== '' ? (
@@ -104,15 +137,14 @@ class FacilityAppointmentPage extends Component {
                 <MDBTable>
                   <MDBTableHead>
                     <tr>
-                      <th>Patient Name</th>
-                      <th>Mobile Number</th>
-                      <th>Email ID</th>
-                      <th>Appointment Date</th>
-                      <th>Survey Send Status</th>
-                      <th>Survey Feedback</th>
+                      <th>EHR Department ID</th>
+                      <th>Department Name</th>
+                      <th>Department City</th>
+                      <th>Campaign ID</th>
+                      <th>Status</th>
                     </tr>
                   </MDBTableHead>
-                  <MDBTableBody>{this.facilityAppointmentRow()}</MDBTableBody>
+                  <MDBTableBody>{this.facilityDepartmentRow()}</MDBTableBody>
                 </MDBTable>
               </MDBCardBody>
             </MDBCard>
@@ -123,4 +155,4 @@ class FacilityAppointmentPage extends Component {
   }
 }
 
-export default FacilityAppointmentPage;
+export default FacilityDepartmentPage;

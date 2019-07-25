@@ -6,14 +6,14 @@ const dbMysql = require("../db/dbMysql");
 const facilityKitModel = require("../models/facilityKit");
 
 router.post('/FacilityKitAccessCreate', async (req, res) => {
-    if (req.body.facilityPracticeid == null || req.body.facilityPracticeid == "" || req.body.facilityDepartmentid == "" || req.body.facilitySurveyToken == "" || req.body.facilitySurveyCampaignid == "" || req.body.facilitySecretid == "" || req.body.facilityFhirId == "") {
+    if (req.body.facilityPracticeid == null || req.body.facilityPracticeid == "" || req.body.facilitySurveyToken == "" || req.body.facilitySecretid == "" || req.body.facilityFhirId == "") {
         return await helpers.generateApiResponse(res, 'Please enter all required fields.', 400, []);
     }
     var post = {
         facility_practice_id: req.body.facilityPracticeid,
-        facility_department_id: req.body.facilityDepartmentid,
+        // facility_department_id: req.body.facilityDepartmentid,
         facility_survey_token: req.body.facilitySurveyToken,
-        facility_survey_campaign_id: req.body.facilitySurveyCampaignid,
+        // facility_survey_campaign_id: req.body.facilitySurveyCampaignid,
         facility_fhir_secret: req.body.facilitySecretid,
         facility_fhir_id: req.body.facilityFhirId,
         f_facility_id: req.body.facilityId
@@ -54,9 +54,9 @@ router.post('/FacilityKitAccessUpdate/:id', async (req, res) => {
     let id = req.params.id;
     var post = {
         facility_practice_id: req.body.facilityPracticeid,
-        facility_department_id: req.body.facilityDepartmentid,
+        // facility_department_id: req.body.facilityDepartmentid,
         facility_survey_token: req.body.facilitySurveyToken,
-        facility_survey_campaign_id: req.body.facilitySurveyCampaignid,
+        // facility_survey_campaign_id: req.body.facilitySurveyCampaignid,
         facility_fhir_secret: req.body.facilitySecretid,
         facility_fhir_id: req.body.facilityFhirId,
         f_facility_id: req.body.facilityId

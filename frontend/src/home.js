@@ -47,7 +47,7 @@ class Home extends Component {
       <Router>
         <div className="flyout">
           <MDBNavbar color="indigo" dark expand="md" fixed="top" scrolling>
-            <MDBNavbarBrand href="/">NYObGyn</MDBNavbarBrand>
+            <MDBNavbarBrand href="/">Advantia Health</MDBNavbarBrand>
             <MDBNavbarToggler
               onClick={this.toggleCollapse('mainNavbarCollapse')}
             />

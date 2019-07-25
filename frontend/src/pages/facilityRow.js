@@ -94,9 +94,12 @@ class FacilityRow extends Component {
           <Link to={'/facilityAppointment/' + this.props.obj.m_facility_id}>
             <MDBIcon icon="user-friends" size="lg" className="blue-text ml-2" />
           </Link>
-          <a href="javscript:void(0)" onClick={this.delete} className="">
+          {/* <a href="javscript:void(0)" onClick={this.delete} className="">
             <MDBIcon icon="trash-alt" size="lg" className="red-text ml-2" />
-          </a>
+          </a> */}
+          <Link to={'/facilityDepartment/' + this.props.obj.m_facility_id}>
+            <MDBIcon icon="clinic-medical" size="lg" className="green-text ml-2" />
+          </Link>
         </td>
         {this.state.alert}
       </tr>

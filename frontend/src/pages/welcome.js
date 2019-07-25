@@ -22,7 +22,7 @@ class Welcome extends React.Component {
             >
               <MDBCardBody>
                 <h2 className="h2-responsive mb-4 text-center">
-                  <strong>NYObGyn </strong>
+                  <strong>Advantia Health</strong>
                 </h2>
                 <p className="pb-4 text-center">
                   <i className="fas fa-info-circle fa-fw" /> This application

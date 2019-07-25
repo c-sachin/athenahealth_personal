@@ -22,20 +22,20 @@ class FacilitykitAcessEditPage extends Component {
     this.state = {
       msg: [{ msgLoading: '', msgError: '' }],
       facilityPracticeid: '',
-      facilityDepartmentid: '',
+      // facilityDepartmentid: '',
       facilityId: '',
       facilitySurveyToken: '',
-      facilitySurveyCampaignid: '',
+      // facilitySurveyCampaignid: '',
       facilitySecretid: '',
       facilityFhirId: '',
       response: '',
       facilityPracticeidErr: '',
       facilityIdErr: '',
       facilitySurveyTokenErr: '',
-      facilitySurveyCampaignidErr: '',
+      // facilitySurveyCampaignidErr: '',
       facilitySecretidErr: '',
       facilityFhirIdErr: '',
-      facilityDepartmentidErr: '',
+      // facilityDepartmentidErr: '',
       data: [],
       alert: null,
     };
@@ -69,10 +69,10 @@ class FacilitykitAcessEditPage extends Component {
         let data = response.data.result[0];
         this.setState({
           facilityPracticeid: data.facility_practice_id,
-          facilityDepartmentid: data.facility_department_id,
+          // facilityDepartmentid: data.facility_department_id,
           facilityId: data.f_facility_id,
           facilitySurveyToken: data.facility_survey_token,
-          facilitySurveyCampaignid: data.facility_survey_campaign_id,
+          // facilitySurveyCampaignid: data.facility_survey_campaign_id,
           facilitySecretid: data.facility_fhir_secret,
           facilityFhirId: data.facility_fhir_id,
           msg: this.msgBlank,
@@ -89,27 +89,27 @@ class FacilitykitAcessEditPage extends Component {
   validateName = () => {
     const { facilityPracticeid } = this.state;
     const { facilityId } = this.state;
-    const { facilityDepartmentid } = this.state;
+    // const { facilityDepartmentid } = this.state;
     const { facilitySurveyToken } = this.state;
-    const { facilitySurveyCampaignid } = this.state;
+    // const { facilitySurveyCampaignid } = this.state;
     const { facilitySecretid } = this.state;
     const { facilityFhirId } = this.state;
     this.setState({
-      facilityPracticeidErr:
-
-        facilityPracticeid.length > 3 ? null : 'Please Enter Practice Id',
+      
       facilityIdErr: 
         facilityId.length > 3 ? null : 'Please Select Facility Id',
-      facilityDepartmentidErr:
-        facilityDepartmentid.length > 0 ? null : 'Please Enter Department Id',
+      // facilityDepartmentidErr:
+      //   facilityDepartmentid.length > 0 ? null : 'Please Enter Department Id',
       facilitySurveyTokenErr:
         facilitySurveyToken.length > 3 ? null : 'Please Enter Survey Token ',
-      facilitySurveyCampaignidErr:
-        facilitySurveyCampaignid.length > 3 ? null : 'Please Enter Survey Campaign id ',
+      // facilitySurveyCampaignidErr:
+      //   facilitySurveyCampaignid.length > 3 ? null : 'Please Enter Survey Campaign id ',
       facilitySecretidErr:
         facilitySecretid.length > 3 ? null : 'Please Enter Secret Key',
       facilityFhirIdErr:
         facilityFhirId.length > 3 ? null : 'Please Enter Client id  ',
+      facilityPracticeidErr:
+        facilityPracticeid.length > 1 ? null : 'Please Enter Practice Id',  
     });
   };
 
@@ -123,9 +123,9 @@ class FacilitykitAcessEditPage extends Component {
     const obj = {
       facilityPracticeid: this.state.facilityPracticeid,
       facilityId: facilityId,
-      facilityDepartmentid: this.state.facilityDepartmentid,
+      // facilityDepartmentid: this.state.facilityDepartmentid,
       facilitySurveyToken: this.state.facilitySurveyToken,
-      facilitySurveyCampaignid: this.state.facilitySurveyCampaignid,
+      // facilitySurveyCampaignid: this.state.facilitySurveyCampaignid,
       facilitySecretid: this.state.facilitySecretid,
       facilityFhirId: this.state.facilityFhirId,
     };
@@ -253,7 +253,7 @@ class FacilitykitAcessEditPage extends Component {
                           {this.state.facilityPracticeidErr}
                         </div>
                       </MDBCol>
-                      <MDBCol md="4" className="mb-3">
+                      {/* <MDBCol md="4" className="mb-3">
                         <label
                           htmlFor="defaultFormRegisterNameEx"
                           className="grey-text"
@@ -274,7 +274,7 @@ class FacilitykitAcessEditPage extends Component {
                         <div className="invalid-feedback">
                           {this.state.facilityDepartmentidErr}
                         </div>
-                      </MDBCol>
+                      </MDBCol> */}
                       <MDBCol md="4" className="mb-3">
                         <label
                           htmlFor="defaultFormRegisterNameEx"
@@ -298,7 +298,7 @@ class FacilitykitAcessEditPage extends Component {
                         </div>
                       </MDBCol>
 
-                      <MDBCol md="4" className="mb-3">
+                      {/* <MDBCol md="4" className="mb-3">
                         <label
                           htmlFor="defaultFormRegisterNameEx"
                           className="grey-text"
@@ -319,7 +319,7 @@ class FacilitykitAcessEditPage extends Component {
                         <div className="invalid-feedback">
                           {this.state.facilitySurveyCampaignidErr}
                         </div>
-                      </MDBCol>
+                      </MDBCol> */}
                     </MDBRow>
                     <br />
                     <MDBRow>

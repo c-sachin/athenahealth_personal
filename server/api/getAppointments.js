@@ -4,6 +4,7 @@ const helpers = require('../lib/helpers');
 const router = express.Router();
 const appointmentModel = require("../models/appointment");
 const facilityKitModel = require("../models/facilityKit");
+const departmentModel = require("../models/department");
 const axios = require("axios");
 const moment = require("moment");
 
@@ -13,11 +14,29 @@ router.get("/get", async (req, res) => {
 var yesterday = moment().subtract(1, 'days');
 yesterday = yesterday.format("MM/DD/YYYY");
 //return await helpers.generateApiResponse(res, 'Success: Test success.', 200, yesterday);
+
 var facilityQuery = facilityKitModel.getFacilityKit(0, 0);
 var [facilityRows] = await dbMysql.execute(facilityQuery);
+
 var f_facility_id = facilityRows[0]['f_facility_id'];
+
+var facilityDeptQuery = departmentModel.facilityDepartment(f_facility_id);
+var [facilityDeptRows] = await dbMysql.execute(facilityDeptQuery);
+var facility_department_id = '';
+for(var i = 0; i < facilityDeptRows.length; i++){
+	if(facilityDeptRows.length > 1){
+		facility_department_id += facilityDeptRows[i]['departmentid']+',';
+	}else{
+		facility_department_id = facilityDeptRows[0]['departmentid'];
+	}
+}
+
+facility_department_id = facility_department_id.replace(/,\s*$/, "");
+
+console.log('department-->',facility_department_id);
+
 var facility_practice_id = facilityRows[0]['facility_practice_id'];
-var facility_department_id = facilityRows[0]['facility_department_id'];
+// var facility_department_id = facilityRows[0]['facility_department_id'];
 var facility_fhir_id = facilityRows[0]['facility_fhir_id'];
 var facility_fhir_secret = facilityRows[0]['facility_fhir_secret'];
 var version = 'preview1';
@@ -74,7 +93,7 @@ function authentication() {
 			var authorization = JSON.parse(content)
 			// Save the token!
 			token = authorization.access_token
-			console.log(token)
+			console.log('token--->',token)
 			signal.emit('next')
 		})
 	})
@@ -109,7 +128,7 @@ function appointments() {
 	var req = https.request({
 		hostname: 'api.athenahealth.com',
         method: 'GET',
-        path: '/'+version+'/'+practiceid+'/appointments/booked'+query,
+        path: '/'+version+'/'+practiceid+'/appointments/booked/multipledepartment'+query,
 		// We set the auth header ourselves this time, because we have a token now.
 		headers: {'authorization': 'Bearer ' + token},
 	}, function(response) {
@@ -119,7 +138,7 @@ function appointments() {
 			content += chunk
 		}) 
 		response.on('end', function() {
-            console.log('appointments:')
+            console.log('appointments---->:')
             console.log(JSON.parse(content))
             var arr = JSON.parse(content)
             var appointmentsArr = arr['appointments']
@@ -130,6 +149,7 @@ function appointments() {
                     practice_id:facility_practice_id,
                     patient_id:Number(appointmentsArr[i].patientid),
                     patient_fname:appointmentsArr[i].patient['firstname'],
+                    departmentid:appointmentsArr[i].patient['departmentid'],
                     patient_lname:appointmentsArr[i].patient['lastname'],
                     patient_email:appointmentsArr[i].patient['email'],
                     patient_mobileno:appointmentsArr[i].patient['mobilephone'],
@@ -149,6 +169,7 @@ function appointments() {
                     appointment_starttime:appointmentsArr[i].starttime
                 }
                 insertAppointmentData(post);
+				console.log('inserted Successfully:')
             }  
         })
 	})
@@ -163,9 +184,13 @@ async function insertAppointmentData(post){
     var [appointmentQueryInsert] = await dbMysql.query(insertAppointmentQuery, post);
 }
 
+async function endCall(){
+	return await helpers.generateApiResponse(res, 'Appointments updated successfully.', 200,[]);
+}
+
 // This is one way of forcing the call order
 function main() {
-	var calls = [authentication, appointments]
+	var calls = [authentication, appointments, endCall]
 	signal.on('next', function() {
 		var nextCall = calls.shift()
 		if (nextCall) {

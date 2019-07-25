@@ -8,7 +8,7 @@ const axios = require("axios");
 const moment = require("moment");
 var https = require('https')
 
-router.get('/send', async (req, res) => {
+router.get('/get', async (req, res) => {
     let query = appointmentModel.appointmentToSurvey()
     var [appointmentRows] = await dbMysql.execute(query);
     for(var i = 0; i < appointmentRows.length; i++)
@@ -24,13 +24,11 @@ router.get('/send', async (req, res) => {
             headers:headers
         }
 
-        var emailId = appointmentRows[i]['patient_email'].replace(/@gmail.com|@aol.com|@hotmail.com/g, '@mailinator.com');
-        console.log('email is----->',emailId);
-        //var emailId = appointmentRows[i]['patient_email']
         var body = {
             "campaign_id": appointmentRows[i]['facility_survey_campaign_id'],
             "contact": {
-                "email": emailId,
+                //"email": appointmentRows[i]['patient_email'].replace(/@gmail.com|@io.com|@hotmail.com/g, '@mailinator.com'),
+                "email": appointmentRows[i]['patient_email'],
                 "first_name": appointmentRows[i]['patient_fname'],
                 "last_name": appointmentRows[i]['patient_lname']
             },
@@ -49,7 +47,6 @@ router.get('/send', async (req, res) => {
             var postdata = {
                 appointment_survey_send_status: '2'
             };
-            console.log('\n success appointment id-- : ', obj.attributes.appointment_id);
             var updateQuery = appointmentModel.appointmentUpdate(response.data.attributes.appointment_id);
             var [updateRow] = await dbMysql.query(updateQuery,postdata);
             if (typeof updateRow == 'undefined' || updateRow.length <= 0) {
@@ -63,7 +60,7 @@ router.get('/send', async (req, res) => {
             console.log('\nerr : ', err.response.data);
             
             var obj = JSON.parse(err.response.config.data);
-            console.log('\n error appointment id-- : ', obj.attributes.appointment_id);
+            console.log('\n appointment id-- : ', obj.attributes.appointment_id);
 
             var postdata2 = {
                 appointment_survey_send_status: '3',

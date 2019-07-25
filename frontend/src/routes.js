@@ -11,9 +11,8 @@ import {
 import FacilityPage from './pages/facilityPage';
 import FacilityCreatePage from './pages/facilityCreatePage';
 import FacilityEditPage from './pages/facilityEditPage';
-import FacilityUserCreatePage from './pages/facilityUserCreatePage';
 import facilityAppointmentPage from './pages/facilityAppointmentPage';
-import FacilityUserEditPage from './pages/facilityUserEditPage';
+import facilityDepartmentPage from './pages/facilityDepartmentPage';
 import FacilitykitAcessPage from './pages/facilitykitAcessPage';
 import FacilityKitListPage from './pages/facilityKitListPage';
 import FacilitykitAcessEditPage from './pages/facilitykitAcessEditPage';
@@ -22,6 +21,9 @@ import ChangePassword from './pages/changePassword';
 import Welcome from './pages/welcome';
 import UnauthorizedPage from './pages/unauthorizedPage';
 import LogoutPage from './pages/logoutPage';
+
+import FacilityUserCreatePage from './pages/facilityUserCreatePage';
+import FacilityUserEditPage from './pages/facilityUserEditPage';
 
 class Routes extends React.Component {
   render() {
@@ -33,13 +35,17 @@ class Routes extends React.Component {
         <Route exact path="/facilityCreate" component={FacilityCreatePage} />
         <Route exact path="/FacilityPage" component={FacilityPage} />
         <Route exact path="/edit/:id" component={FacilityEditPage} />
-
-        <Route exact path="/facilityUserCreate/:id" component={FacilityUserCreatePage}/>
-        <Route exact path="/facilityuseredit/:facility_id/:facility_user_id" component={FacilityUserEditPage}/>
         <Route exact path="/facilityAppointment/:id" component={facilityAppointmentPage} />
+        <Route exact path="/facilityDepartment/:id" component={facilityDepartmentPage} />
         <Route exact path="/FacilitykitAcessPage/:id" component={FacilitykitAcessPage}/>
         <Route exact path="/facilityKitListPage" component={FacilityKitListPage}/>
         <Route exact path="/editkitAcess/:id" component={FacilitykitAcessEditPage}/>
+
+        <Route exact path="/facilityUserCreate/:id" component={FacilityUserCreatePage}/>
+        <Route exact path="/facilityuseredit/:facility_id/:facility_user_id" component={FacilityUserEditPage}/>
+        
+        
+        
         {/* <Route exact path="/patientScreening" component={PatientScreening} />
         <Route
           exact

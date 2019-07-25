@@ -343,6 +343,80 @@ var helpers = {
             formateDate = dateStr.replace('["', '');
         }
         return formateDate;
+    },
+
+    'path_join': function () {
+        // trim slashes from arguments, prefix a slash to the beginning of each, re-join (ignores empty parameters)
+        var args = Array.prototype.slice.call(arguments, 0)
+        var nonempty = args.filter(function(arg, idx, arr) {
+            return typeof(arg) != 'undefined'
+        })
+        var trimmed = nonempty.map(function(arg, idx, arr) {
+            return '/' + String(arg).replace(new RegExp('^/+|/+$'), '')
+        })
+        return trimmed.join('')
+    },
+
+    'authentication': async function (facility_fhir_id,facility_fhir_secret) {
+        const axios = require("axios");
+        var keySecret = Buffer.from(facility_fhir_id+":"+facility_fhir_secret).toString('base64');
+        var auth = 'Basic '+keySecret;
+        var token = '';
+
+        var apiUrl = 'https://api.athenahealth.com/oauthpreview/token';
+        var method = 'POST';
+        var headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': auth
+        }
+        var config = {
+            headers:headers
+        }
+        var querystring = require('querystring')
+        var body = querystring.stringify({grant_type: 'client_credentials'})
+            
+        var { data } = await axios.post(apiUrl, body, config);
+        return await data.access_token;
+    },
+
+    'department': async function (token,facility_practice_id) {
+        version = 'preview1';
+        const axios = require("axios");
+        var auth = 'Bearer '+token;
+
+        var apiUrl = 'https://api.athenahealth.com/'+version+'/'+facility_practice_id+'/departments';
+       
+        var method = 'get';
+        var headers = {'Authorization':auth}
+        
+        var config = {
+            headers:headers
+        }
+        var querystring = require('querystring')
+        var body = querystring.stringify({providerlist: false,showalldepartments:false})
+       
+        apiUrl = apiUrl+'?'+body;
+         
+        var { data } = await axios.get(apiUrl,config);
+        var departments = data.departments;
+        return await departments;
+    },
+
+    'feedback': async function (facility_survey_token,compaignId, email) {
+        const axios = require("axios");
+        var token = 'Token '+facility_survey_token;
+        var apiUrl = 'https://app.promoter.io/api/v2/feedback/?survey__campaign='+compaignId+'&survey__contact__email='+email;
+        var headers = {
+            'Content-Type': 'application/json',
+            'Authorization': token
+        }
+        var config = {
+            headers:headers
+        }
+
+        var { data } = await axios.get(apiUrl,config);
+        console.log(data.results);
+        return data.results;
     }
 };
 

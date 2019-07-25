@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { MDBIcon } from 'mdbreact';
+import { MDBIcon, MDBBtn } from 'mdbreact';
 import axios from 'axios';
 import SweetAlert from 'react-bootstrap-sweetalert';
 import helpers from '../components/helper';
+const paddingStyle = {
+  padding: '4px'
+};
 
 class FacilityAppointmentRow extends Component {
   constructor(props) {
@@ -11,7 +14,33 @@ class FacilityAppointmentRow extends Component {
     this.state = {
       alert: null,
     };
+   this.getFeedback = this.getFeedback.bind(this);
   }
+
+  getFeedback(appointment_id,e){
+     //e.preventDefault();
+    const obj = {
+      appointment_id: appointment_id
+    };
+    let _self = this;
+    axios
+      .post(
+        `${process.env.REACT_APP_API_BASE_URL}facilityAppointments/feedback/`,
+          obj
+      )
+      .then(res => {
+        window.location.reload()
+      })
+      .catch(err => {
+        let msgErr = helpers.errMessage(err);
+        console.log(msgErr);
+        _self.setState({
+          msg: msgErr,
+        });
+      });
+  }
+
+
   render() {
     if(this.props.obj.appointment_survey_send_status == 1){
         var status = 'Not Send';
@@ -20,6 +49,14 @@ class FacilityAppointmentRow extends Component {
       }else{
         var status = 'Failed';
       }
+      var statusText = '';
+      if(this.props.obj.appointment_survey_send_status == 2 && this.props.obj.appointment_feedback_response == ''){
+      //  var statusText = <a href="#" onClick={this.getFeedback.bind(this, this.props.obj.appointment_id)} className="blue-text">Get Feedback</a>;
+       var statusText = <MDBBtn style={paddingStyle} className="btn btn-primary btn-sm" type="button" onClick={this.getFeedback.bind(this, this.props.obj.appointment_id)}>
+            Get Feedback</MDBBtn>;
+      }else{
+        var statusText = this.props.obj.appointment_feedback_response;
+      }
     return (
       <tr>
         <td>{this.props.obj.patient_fname+' '+this.props.obj.patient_lname}</td>
@@ -27,6 +64,7 @@ class FacilityAppointmentRow extends Component {
         <td>{this.props.obj.patient_email}</td>
         <td>{this.props.obj.appointment_date}</td>
         <td>{status}</td>
+        <td>{statusText}</td>
       </tr>
     );
   }

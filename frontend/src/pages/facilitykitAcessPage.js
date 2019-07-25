@@ -21,20 +21,20 @@ class FacilitykitAcessPage extends Component {
     facilityId = this.props.match.params.id;
     this.state = {
       facilityPracticeid: '',
-      facilityDepartmentid: '',
+      // facilityDepartmentid: '',
       facilityId: '',
       facilitySurveyToken: '',
-      facilitySurveyCampaignid: '',
+      // facilitySurveyCampaignid: '',
       facilitySecretid: '',
       facilityFhirId: '',
       response: '',
       facilityPracticeidErr: '',
       facilityIdErr: '',
       facilitySurveyTokenErr: '',
-      facilitySurveyCampaignidErr: '',
+      // facilitySurveyCampaignidErr: '',
       facilitySecretidErr: '',
       facilityFhirIdErr: '',
-      facilityDepartmentidErr: '',
+      // facilityDepartmentidErr: '',
       data: [],
       alert: null,
     };
@@ -43,22 +43,22 @@ class FacilitykitAcessPage extends Component {
     const { facilityPracticeid } = this.state;
     const { facilityId } = this.state;
     const { facilitySurveyToken } = this.state;
-    const { facilitySurveyCampaignid } = this.state;
+    // const { facilitySurveyCampaignid } = this.state;
     const { facilitySecretid } = this.state;
     const { facilityFhirId } = this.state;
-    const { facilityDepartmentid } = this.state;
+    // const { facilityDepartmentid } = this.state;
 
     this.setState({
       facilityPracticeidErr:
         facilityPracticeid.length > 3 ? null : 'Please Enter Practice Id',
       facilityIdErr: 
         facilityId.length > 3 ? null : 'Please Select Facility Id',
-      facilityDepartmentidErr:
-        facilityDepartmentid.length > 0 ? null : 'Please Enter Department Id',
+      // facilityDepartmentidErr:
+      //   facilityDepartmentid.length > 0 ? null : 'Please Enter Department Id',
       facilitySurveyTokenErr:
         facilitySurveyToken.length > 3 ? null : 'Please Enter Survey Token ',
-      facilitySurveyCampaignidErr:
-        facilitySurveyCampaignid.length > 3 ? null : 'Please Enter Survey Campaign id ',
+      // facilitySurveyCampaignidErr:
+      //   facilitySurveyCampaignid.length > 3 ? null : 'Please Enter Survey Campaign id ',
       facilitySecretidErr:
         facilitySecretid.length > 3 ? null : 'Please Enter Secret Key',
       facilityFhirIdErr:
@@ -104,9 +104,9 @@ class FacilitykitAcessPage extends Component {
           session_token: this.state.token,
           facilityPracticeid: this.state.facilityPracticeid,
           facilityId: facilityId,
-          facilityDepartmentid: this.state.facilityDepartmentid,
+          // facilityDepartmentid: this.state.facilityDepartmentid,
           facilitySurveyToken: this.state.facilitySurveyToken,
-          facilitySurveyCampaignid: this.state.facilitySurveyCampaignid,
+          // facilitySurveyCampaignid: this.state.facilitySurveyCampaignid,
           facilitySecretid: this.state.facilitySecretid,
           facilityFhirId: this.state.facilityFhirId,
         }),
@@ -126,9 +126,9 @@ class FacilitykitAcessPage extends Component {
 
       this.setState({
         facilityPracticeid: '',
-        facilityDepartmentid: '',
+        // facilityDepartmentid: '',
         facilitySurveyToken: '',
-        facilitySurveyCampaignid: '',
+        // facilitySurveyCampaignid: '',
         facilitySecretid: '',
         facilityFhirId: '',
         
@@ -205,7 +205,7 @@ class FacilitykitAcessPage extends Component {
                           {this.state.facilityPracticeidErr}
                         </div>
                       </MDBCol>
-                      <MDBCol md="4" className="mb-3">
+                      {/* <MDBCol md="4" className="mb-3">
                         <label
                           htmlFor="defaultFormRegisterNameEx"
                           className="grey-text"
@@ -226,7 +226,7 @@ class FacilitykitAcessPage extends Component {
                         <div className="invalid-feedback">
                           {this.state.facilityDepartmentidErr}
                         </div>
-                      </MDBCol>
+                      </MDBCol> */}
                       <MDBCol md="4" className="mb-3">
                         <label
                           htmlFor="defaultFormRegisterNameEx"
@@ -250,7 +250,7 @@ class FacilitykitAcessPage extends Component {
                         </div>
                       </MDBCol>
 
-                      <MDBCol md="4" className="mb-3">
+                      {/* <MDBCol md="4" className="mb-3">
                         <label
                           htmlFor="defaultFormRegisterNameEx"
                           className="grey-text"
@@ -271,7 +271,7 @@ class FacilitykitAcessPage extends Component {
                         <div className="invalid-feedback">
                           {this.state.facilitySurveyCampaignidErr}
                         </div>
-                      </MDBCol>
+                      </MDBCol> */}
                     </MDBRow>
                     <br />
                     <MDBRow>
