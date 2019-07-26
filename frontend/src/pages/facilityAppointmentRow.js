@@ -42,20 +42,23 @@ class FacilityAppointmentRow extends Component {
 
 
   render() {
-    if(this.props.obj.appointment_survey_send_status == 1){
+      if(this.props.obj.appointment_survey_send_status == 1){
         var status = 'Not Send';
       }else if(this.props.obj.appointment_survey_send_status == 2){
         var status = 'Successfully Sent';
       }else{
         var status = 'Failed';
       }
+
       var statusText = '';
-      if(this.props.obj.appointment_survey_send_status == 2 && this.props.obj.appointment_feedback_response == ''){
-      //  var statusText = <a href="#" onClick={this.getFeedback.bind(this, this.props.obj.appointment_id)} className="blue-text">Get Feedback</a>;
-       var statusText = <MDBBtn style={paddingStyle} className="btn btn-primary btn-sm" type="button" onClick={this.getFeedback.bind(this, this.props.obj.appointment_id)}>
-            Get Feedback</MDBBtn>;
-      }else{
+      if(this.props.obj.appointment_feedback_status == 3){
+          var statusText = <MDBBtn style={paddingStyle} className="btn btn-primary btn-sm" type="button" onClick={this.getFeedback.bind(this, this.props.obj.appointment_id)}>
+                Not Received Try Again</MDBBtn>;
+      }else if(this.props.obj.appointment_feedback_status == 2){
         var statusText = this.props.obj.appointment_feedback_response;
+      }else if(this.props.obj.appointment_survey_send_status == 2){
+        var statusText = <MDBBtn style={paddingStyle} className="btn btn-primary btn-sm" type="button" onClick={this.getFeedback.bind(this, this.props.obj.appointment_id)}>
+                Get Feedback</MDBBtn>;
       }
     return (
       <tr>

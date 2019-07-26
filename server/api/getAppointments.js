@@ -141,6 +141,10 @@ function appointments() {
             console.log('appointments---->:')
             console.log(JSON.parse(content))
             var arr = JSON.parse(content)
+			if (typeof arr['appointments'] == 'undefined' || arr['appointments'].length <= 0) {
+				console.log('Error---->:',arr['detailedmessage']);
+				return;
+			}
             var appointmentsArr = arr['appointments']
             for(var i = 0; i < appointmentsArr.length; i++)
             {

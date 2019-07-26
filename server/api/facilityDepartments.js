@@ -52,6 +52,10 @@ router.post("/FatchDepartments", async (req, res) => {
     let query = facilityKitModel.getFacilityKit(1,facilityId)
     var [facilityRows] = await dbMysql.execute(query);
 
+    if (typeof facilityRows == 'undefined' || facilityRows.length <= 0) {
+        return await helpers.generateApiResponse(res, 'Client ID or Secret ID not found.', 404, []);
+    }
+
     var facility_practice_id = facilityRows[0]['facility_practice_id'];
     var facility_fhir_id = facilityRows[0]['facility_fhir_id'];
     var facility_fhir_secret = facilityRows[0]['facility_fhir_secret'];

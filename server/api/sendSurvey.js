@@ -49,7 +49,7 @@ router.get('/send', async (req, res) => {
             var postdata = {
                 appointment_survey_send_status: '2'
             };
-            console.log('\n success appointment id-- : ', obj.attributes.appointment_id);
+            console.log('\n success appointment id-- : ', response.data.attributes.appointment_id);
             var updateQuery = appointmentModel.appointmentUpdate(response.data.attributes.appointment_id);
             var [updateRow] = await dbMysql.query(updateQuery,postdata);
             if (typeof updateRow == 'undefined' || updateRow.length <= 0) {
@@ -60,7 +60,7 @@ router.get('/send', async (req, res) => {
         .catch(async (err) => {
             console.log('\nerr : ', err.response.status);
             console.log('\nerr : ', err.response.statusText);
-            console.log('\nerr : ', err.response.data);
+            console.log('\nerr : ', err.response);
             
             var obj = JSON.parse(err.response.config.data);
             console.log('\n error appointment id-- : ', obj.attributes.appointment_id);

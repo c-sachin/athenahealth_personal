@@ -399,10 +399,14 @@ var helpers = {
          
         var { data } = await axios.get(apiUrl,config);
         var departments = data.departments;
+        console.log('departments--->',departments);
         return await departments;
     },
 
     'feedback': async function (facility_survey_token,compaignId, email) {
+        
+        var email = email.replace(/@gmail.com|@aol.com|@hotmail.com/g, '@mailinator.com');
+
         const axios = require("axios");
         var token = 'Token '+facility_survey_token;
         var apiUrl = 'https://app.promoter.io/api/v2/feedback/?survey__campaign='+compaignId+'&survey__contact__email='+email;
@@ -415,7 +419,8 @@ var helpers = {
         }
 
         var { data } = await axios.get(apiUrl,config);
-        console.log(data.results);
+        console.log('feedback------>');
+        console.log(data);
         return data.results;
     }
 };
