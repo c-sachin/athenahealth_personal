@@ -79,10 +79,11 @@ class FacilityRow extends Component {
         <td>{this.props.obj.m_facility_app_id}</td>
         <td>{this.props.obj.m_facility_owner_nm}</td>
         <td>
-          <Link to={'/edit/' + this.props.obj.m_facility_id} className="">
+          <Link to={'/edit/' + this.props.obj.m_facility_id} className="" title="Click to edit">
             <MDBIcon icon="edit" size="lg" className="indigo-text ml-2" />
           </Link>
           <a
+            title="Go to facility settings" 
             href="javscript:void(0)"
             onClick={this.checkFacility.bind(
               this,
@@ -91,13 +92,13 @@ class FacilityRow extends Component {
           >
             <MDBIcon icon="key" size="lg" className="green-text ml-2" />
           </a>
-          <Link to={'/facilityAppointment/' + this.props.obj.m_facility_id}>
+          <Link to={'/facilityAppointment/' + this.props.obj.m_facility_id}  title="Go to appointments">
             <MDBIcon icon="user-friends" size="lg" className="blue-text ml-2" />
           </Link>
           {/* <a href="javscript:void(0)" onClick={this.delete} className="">
             <MDBIcon icon="trash-alt" size="lg" className="red-text ml-2" />
           </a> */}
-          <Link to={'/facilityDepartment/' + this.props.obj.m_facility_id}>
+          <Link to={'/facilityDepartment/' + this.props.obj.m_facility_id} title="Go to departments">
             <MDBIcon icon="clinic-medical" size="lg" className="green-text ml-2" />
           </Link>
         </td>

@@ -1,3 +1,4 @@
+const helpers = require('../lib/helpers');
 class Appointment {
     static getAppointment(flag, id) {
         let sql = 'SELECT * FROM m_appointment WHERE appointment_id =' + id; //specific appointment
@@ -34,6 +35,17 @@ class Appointment {
 
     static appointmentToSurvey() {
         let sql = 'SELECT a.f_facility_id, a.appointment_id,a.patient_fname,a.patient_lname,a.patient_email, f.facility_survey_token, d.facility_survey_campaign_id FROM m_appointment a, m_facility_settings f, m_department d WHERE a.appointment_survey_send_status IN(1,3) AND a.f_facility_id = f.f_facility_id AND f.f_facility_id = d.f_facility_id AND a.departmentid = d.departmentid AND d.department_is_deleted = 0'
+        return sql;
+    }
+
+    static getFacilityAppointmentCount(facilityId) {
+        let sql = 'SELECT count(*) as total_rows FROM m_appointment where f_facility_id = ' + facilityId;
+        return sql;
+    }
+
+    static getFacilityAppointmentList(facilityId, page = 1, perPage = 10) {
+        let offset = helpers.getPaginationOffset(page, perPage);
+        let sql = 'SELECT *, DATE_FORMAT(`appointment_date`,"%d-%m-%Y") AS `appointment_date` from  m_appointment where f_facility_id = ' + facilityId + ' ORDER BY `appointment_id` ASC LIMIT ' + offset + ' , ' + perPage;
         return sql;
     }
 }

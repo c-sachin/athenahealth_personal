@@ -8,6 +8,27 @@ const facilityKitModel = require("../models/facilityKit");
 
 router.post("/facilityAppointments", async (req, res) => {
     var facilityId = req.body.facility_id;
+    var page = req.query.page;
+    var perPage = req.query.per_page;
+    let query = appointmentModel.getFacilityAppointmentList(facilityId, page, perPage);
+    var [facilityAppointmentsRows] = await dbMysql.execute(query);
+    if (typeof facilityAppointmentsRows == 'undefined' || facilityAppointmentsRows.length <= 0) {
+        return await helpers.generateApiResponse(res, 'Error: No data found.', 404, []);
+    }
+
+    var getfacilityAppointmentsCountQuery = appointmentModel.getFacilityAppointmentCount(facilityId);
+    var [facilityAppointmentsCountRows] = await dbMysql.execute(getfacilityAppointmentsCountQuery);
+
+    var data = {
+        count: facilityAppointmentsCountRows[0].total_rows,
+        data: facilityAppointmentsRows
+    }
+
+    return await helpers.generateApiResponse(res, 'Facility appointments found.', 200, data);
+});
+
+router.post("/facilityAppointments1", async (req, res) => {
+    var facilityId = req.body.facility_id;
     let query = appointmentModel.facilityAppointment(facilityId)
     var [facilityAppointmentRows] = await dbMysql.execute(query);
     if (typeof facilityAppointmentRows == 'undefined' || facilityAppointmentRows.length <= 0) {

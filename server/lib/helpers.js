@@ -422,6 +422,13 @@ var helpers = {
         console.log('feedback------>');
         console.log(data);
         return data.results;
+    },
+    'getPaginationOffset': function (page = 1, perPage = 10) {
+        let offset = 0;
+        if (page > 1) {
+            offset = (page - 1) * perPage;
+        }
+        return offset;
     }
 };
 
