@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
 import { Link } from 'react-router-dom';
-import {CSVLink, CSVDownload} from 'react-csv';
+import {CSVLink} from 'react-csv';
 import {
   MDBCardHeader,
   MDBContainer,
@@ -16,11 +16,6 @@ import helpers from '../components/helper';
 import Cookies from 'js-cookie';
 import './table.css';
 let facilityId = '';
-// const csvData =[
-//   ['firstname', 'lastname', 'email'] ,
-//   ['John', 'Doe' , 'john.doe@xyz.com'] ,
-//   ['Jane', 'Doe' , 'jane.doe@xyz.com']
-// ];
 class FacilityAppointmentPage extends Component {
   constructor(props) {
     super(props);
@@ -294,7 +289,7 @@ class FacilityAppointmentPage extends Component {
                   <i class="fas fa-undo fa-fw" /> Back
                 </Link>
 
-                <CSVLink class="btn btn-info float-right btn-sm" data={this.state.csvData} >Download me</CSVLink>
+                <CSVLink class="btn btn-info float-right btn-sm" data={this.state.csvData} >Export To CSV</CSVLink>
                 
               </MDBCardHeader>
               <MDBCardBody>

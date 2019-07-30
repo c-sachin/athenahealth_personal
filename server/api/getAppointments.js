@@ -184,7 +184,7 @@ function appointments() {
 }
 
 async function insertAppointmentData(post){
-    var insertAppointmentQuery = appointmentModel.insertAppointment();
+    var insertAppointmentQuery = 'INSERT INTO m_appointment SET ?';
     var [appointmentQueryInsert] = await dbMysql.query(insertAppointmentQuery, post);
 }
 

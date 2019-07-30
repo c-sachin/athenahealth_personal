@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { MDBIcon } from 'mdbreact';
 import axios from 'axios';
-import SweetAlert from 'react-bootstrap-sweetalert';
 import helpers from '../components/helper';
-    var status = '';
 
 class FacilityRow extends Component {
   constructor(props) {
