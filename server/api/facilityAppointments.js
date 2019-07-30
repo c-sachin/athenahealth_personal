@@ -27,9 +27,38 @@ router.post("/facilityAppointments", async (req, res) => {
     return await helpers.generateApiResponse(res, 'Facility appointments found.', 200, data);
 });
 
-router.post("/facilityAppointments1", async (req, res) => {
+router.post("/search", async (req, res, next) => {
     var facilityId = req.body.facility_id;
-    let query = appointmentModel.facilityAppointment(facilityId)
+    var key = req.query.search;
+    var perPage = req.query.per_page;
+    var page = req.query.page;
+    if (key.length < 3) {
+        return await helpers.generateApiResponse(res, 'Please enter atleast 3 characters.', 400, []);
+    }
+
+    var searchQuery = appointmentModel.search(facilityId, key, page, perPage);
+ 
+    var [searchRows] = await dbMysql.query(searchQuery);
+    if (typeof searchRows == 'undefined' || searchRows.length <= 0) {
+        return await helpers.generateApiResponse(res, `No appointments found for search: ${key}`, 400, []);
+    }
+
+    var getSearchCountQuery = appointmentModel.getSearchCount(facilityId,key);
+ 
+    var [searchCountRows] = await dbMysql.execute(getSearchCountQuery);
+
+    var data = {
+        count: searchCountRows[0].total_rows,
+        data: searchRows
+    }
+
+    return await helpers.generateApiResponse(res, 'Appointments found.', 200, data);
+});
+
+router.post("/facilityAppointmentsAll", async (req, res) => {
+    var facilityId = req.body.facility_id;
+    var key = req.query.search;
+    let query = appointmentModel.facilityAppointment(facilityId,key)
     var [facilityAppointmentRows] = await dbMysql.execute(query);
     if (typeof facilityAppointmentRows == 'undefined' || facilityAppointmentRows.length <= 0) {
         return await helpers.generateApiResponse(res, 'No data found', 404, []);

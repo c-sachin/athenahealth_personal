@@ -12,6 +12,7 @@ async function executeQuery(){
       console.log("No data found.");
   }else{
     appointmentRows = appointmentRowsArr[0];
+    //var flagCount = 0;
     for (var i = 0; i < appointmentRows.length; i++) {
       var token = 'Token ' + appointmentRows[i]['facility_survey_token'];
       var apiUrl = 'https://app.promoter.io/api/v2/survey/';
@@ -40,7 +41,7 @@ async function executeQuery(){
   
       axios.post(apiUrl, body, config)
         .then(async (response) => {
-          console.log('\nresponse status: ', response.status);
+          console.log('\n response status: ', response.status);
           var postData = {
             appointment_survey_send_status:'2'
           };
@@ -50,17 +51,24 @@ async function executeQuery(){
           if (typeof appointmentUpdate.affectedRows == 'undefined' || appointmentUpdate.affectedRows <= 0) {
             console.log('Error while updating success response status.');
           }
-          
+          // flagCount++;
+          // if(flagCount == appointmentRows.length){
+          //   await process.exit(1);
+          // }
         })
         .catch(async (err) => {
           console.log('Error status:', err.response.status);
           console.log('Error:',err.response.data);
 
           var obj = JSON.parse(err.response.config.data);
-          var appointment_survey_send_message = JSON.stringify(err.response.data);
+          var message = err.response.data;
+          var errorString = '';
+          for(var key in message) {
+            errorString = key +" : "+message[key];
+          }
   
           var post = {
-            appointment_survey_send_message: appointment_survey_send_message,
+            appointment_survey_send_message: errorString,
             appointment_survey_send_status:'3'
           };
           let sql = 'UPDATE m_appointment SET ? where appointment_id=' + obj.attributes.appointment_id
@@ -69,6 +77,10 @@ async function executeQuery(){
           if (typeof appointmentFailUpdate.affectedRows == 'undefined' || appointmentFailUpdate.affectedRows <= 0) {
             console.log('Error while updating fail response status.');
           }
+          // flagCount ++;
+          // if(flagCount == appointmentRows.length){
+          //   await process.exit(1);
+          // }
         });
     }
   }	

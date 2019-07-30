@@ -23,8 +23,9 @@ class Appointment {
         return sql;
     }
 
-    static facilityAppointment(facilityId) {
-        let sql = 'SELECT *, DATE_FORMAT(`appointment_date`,"%d-%m-%Y") AS `appointment_date` from  m_appointment where f_facility_id = ' + facilityId
+    // used for export csv, do not change column names
+    static facilityAppointment(facilityId, key) {
+        let sql = 'SELECT patient_fname AS FirstName ,patient_lname AS LastName,patient_email AS Email,patient_mobileno AS MobileNumber,patient_homephone AS PhoneNumber,patient_address1 AS Address,patient_city AS City,patient_zip AS Zip,patient_sex AS Sex,patient_state AS State,patient_country AS Country, DATE_FORMAT(`appointment_date`,"%d-%m-%Y") AS AppointmentDate, (CASE WHEN appointment_survey_send_status = 2 THEN "Success" WHEN appointment_survey_send_status = 3 THEN "Fail" ELSE " " END) AS SurveySendStatus, appointment_survey_send_message AS FailReason, (CASE WHEN appointment_feedback_status = 2 THEN "Feedback recevied" WHEN appointment_feedback_status = 3 THEN "Feedback not recevied" ELSE " " END) AS SurveyFeedbackStatus, appointment_feedback_response AS FeedbackResponse, appointment_feedback_score AS FeedbackScore from m_appointment where f_facility_id =' + facilityId + ' AND patient_fname LIKE "%' + key + '%" OR patient_lname LIKE "%' + key + '%" OR patient_email LIKE "%' + key + '%" OR patient_mobileno LIKE "%' + key + '%" ORDER BY appointment_id'
         return sql;
     }
 
@@ -47,6 +48,17 @@ class Appointment {
         let offset = helpers.getPaginationOffset(page, perPage);
         let sql = 'SELECT *, DATE_FORMAT(`appointment_date`,"%d-%m-%Y") AS `appointment_date` from  m_appointment where f_facility_id = ' + facilityId + ' ORDER BY `appointment_id` ASC LIMIT ' + offset + ' , ' + perPage;
         return sql;
+    }
+
+   static getSearchCount(facilityId, key) {
+        let sql = 'SELECT count(*) as total_rows from  m_appointment where f_facility_id = ' + facilityId+ ' AND patient_fname LIKE "%' + key + '%" OR patient_lname LIKE "%' + key + '%" OR patient_email LIKE "%' + key + '%" OR patient_mobileno LIKE "%' + key + '%" ';
+        return sql;
+    }
+
+    static search(facilityId, key, page = 1, perPage = 10) {
+        let offset = helpers.getPaginationOffset(page, perPage);
+        let sql = 'SELECT *, DATE_FORMAT(appointment_date,"%d-%m-%Y") AS appointment_date from  m_appointment where f_facility_id = ' + facilityId + ' AND patient_fname LIKE "%' + key + '%" OR patient_lname LIKE "%' + key + '%" OR patient_email LIKE "%' + key + '%" OR patient_mobileno LIKE "%' + key + '%" ORDER BY appointment_id ASC LIMIT ' + offset + ' , ' + perPage;
+        return sql; 
     }
 }
 

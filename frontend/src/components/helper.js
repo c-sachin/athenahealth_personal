@@ -1,4 +1,5 @@
 /* eslint-disable eqeqeq */
+import $ from 'jquery';
 const helpers = {
   setMsg: function(loading, error) {
     let msg = [
@@ -10,85 +11,7 @@ const helpers = {
 
     return msg;
   },
-  /**
-   * Get API path for Patient Daily Query & Before After Analysis Search functionally.
-   *
-   * @param {string} basePath API Base path.
-   * @param {number} type Intervention or measure type. Refer following list.
-   * 1. Lab Component
-   * 2. Vital Signs
-   * 3. Medication
-   * 4. Imaging
-   * 5. Admission
-   * 7. Procedure
-   *
-   * @returns {string} API Url
-   */
-  getSearchApiUrl: function(basePath, type) {
-    var apiUrl = '';
-    if (type == 1) {
-      // For Lab Component
-      apiUrl = `${basePath}search/lab-component`;
-    }
-    if (type == 2) {
-      // For Vital Signs
-      apiUrl = `${basePath}search/vital-signs`;
-    }
-    if (type == 3) {
-      // For Medication
-      apiUrl = `${basePath}search/medication`;
-    }
-    if (type == 4) {
-      // For Imaging
-      apiUrl = `${basePath}search/imaging`;
-    }
-    if (type == 5) {
-      // For Admission
-      apiUrl = `${basePath}search/admission`;
-    }
-    if (type == 7) {
-      // For Procedure
-      apiUrl = `${basePath}search/procedure`;
-    }
-    return apiUrl;
-  },
-  /**
-   * Get API path for Patient Search Query Search functionally.
-   *
-   * @param {string} basePath API Base path.
-   * @param {number} type Intervention or measure type. Refer following list.
-   * 1. Patient Demographics
-   * 2. Procedure
-   * 3. Lab Component
-   * 4. Diagnosis
-   * 5. Medication
-   *
-   * @returns {string} API Url
-   */
-  getSearchApiUrlForPsq: function(basePath, type) {
-    var apiUrl = '';
-    if (type == 1) {
-      // For Patient Demographics
-      apiUrl = `${basePath}search/patient-demographics`;
-    }
-    if (type == 2) {
-      // For Procedure
-      apiUrl = `${basePath}search/procedure`;
-    }
-    if (type == 3) {
-      // For Lab Component
-      apiUrl = `${basePath}search/lab-component`;
-    }
-    if (type == 4) {
-      // For Diagnosis
-      apiUrl = `${basePath}search/diagnosis`;
-    }
-    if (type == 5) {
-      // For Medication
-      apiUrl = `${basePath}search/medication`;
-    }
-    return apiUrl;
-  },
+  
   /**
    * Call search url using axios & previous request cancellation mechanism
    *
@@ -114,6 +37,47 @@ const helpers = {
     }
     let msgErr = this.setMsg('', errorMsg);
     return msgErr;
+  },
+
+  /**
+   * Get datatable configuration
+   * @param {string} sortColumnColunm on which default sort will apply. Default is 'id' column.
+   * @param {string} sortOrder Sorting order for default sort. Default is asc
+   * @param {boolean} tblStriped stripe color the odd rows. Default is true.
+   * @param {boolean} tblHighlightOnHover if rows are to be highlighted on hover. Default is true.
+   * @param {boolean} tblResponsive makes the table horizontally scrollable on smaller screen widths. Default is true
+   * @param {string} tblHeader removes the table header. title, contextTitle and contextActions will be ignored. Default is true
+   * @param {string} tblClassName override the className on the Table wrapper.
+   * @param {object} tblCustomTheme Override the default theme, by overriding specifc props. Your changes will be merged. See Theming for more information
+   */
+  getDatatableConfig: (
+    sortColumn = 'id',
+    sortOrder = 'asc',
+    tblStriped = true,
+    tblHighlightOnHover = true,
+    tblResponsive = true,
+    tblHeader = true,
+    tblClassName = 'table table-striped table-bordered table-hover table-condensed',
+    tblCustomTheme = {}
+  ) => {
+    var config = {
+      sort: { column: sortColumn, order: sortOrder },
+      striped: tblStriped,
+      highlightOnHover: tblHighlightOnHover,
+      responsive: tblResponsive,
+      noHeader: tblHeader,
+      className: tblClassName,
+      customTheme: tblCustomTheme,
+    };
+    return config;
+  },
+
+  /**
+   * Reset datatable pagination to 1st page
+   * @param {string} btnId Button selector
+   */
+  resetDatatablePagination: (btnId = '#pagination-first-page') => {
+    $(btnId).trigger('click');
   },
 };
 

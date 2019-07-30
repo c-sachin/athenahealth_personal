@@ -10,10 +10,8 @@ var version = 'preview1';
 
 main();
 async function main() {
-
     var yesterday = moment().subtract(1, 'days');
     yesterday = yesterday.format("MM/DD/YYYY");
-
     sql = 'SELECT * FROM m_facility_settings where facility_is_deleted = 0';
     var [facilityRows] = await dbMysql.execute(sql);
 
@@ -128,7 +126,7 @@ async function appointments(token, facility_department_id, facility_practice_id,
             appointment_type:appointmentsArr[i].appointmenttype,
             appointment_starttime:appointmentsArr[i].starttime
         }
-        insertAppointmentData(post);
+        await insertAppointmentData(post);
     } 
 }
 
