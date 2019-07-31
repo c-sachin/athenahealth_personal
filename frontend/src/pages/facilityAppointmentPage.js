@@ -14,7 +14,6 @@ import {
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import helpers from '../components/helper';
-import Cookies from 'js-cookie';
 import DataTable from 'react-data-table-component';
 import { DatatableNoData } from '../components/datatableComponent';
 import {CSVLink} from 'react-csv';
@@ -35,7 +34,7 @@ class FacilityAppointmentPage extends Component {
       datatableMsg: 'No data found for appointments.',
       msg: [{ msgLoading: '', msgError: '' }],
       loading: false,
-      perPage: 1,
+      perPage: 50,
       searchText: '',
       enableSearch: false,
       /**
