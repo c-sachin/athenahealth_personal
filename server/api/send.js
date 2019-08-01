@@ -12,7 +12,8 @@ async function executeQuery(){
       console.log("No data found.");
   }else{
     appointmentRows = appointmentRowsArr[0];
-    //var flagCount = 0;
+    var flagCount = 0;
+    var totalRecords = appointmentRows.length;
     for (var i = 0; i < appointmentRows.length; i++) {
       var token = 'Token ' + appointmentRows[i]['facility_survey_token'];
       var apiUrl = 'https://app.promoter.io/api/v2/survey/';
@@ -51,10 +52,10 @@ async function executeQuery(){
           if (typeof appointmentUpdate.affectedRows == 'undefined' || appointmentUpdate.affectedRows <= 0) {
             console.log('Error while updating success response status.');
           }
-          // flagCount++;
-          // if(flagCount == appointmentRows.length){
-          //   await process.exit(1);
-          // }
+          flagCount++;
+          if(flagCount == totalRecords){
+            await process.exit(0);
+          }
         })
         .catch(async (err) => {
           console.log('Error status:', err.response.status);
@@ -77,10 +78,10 @@ async function executeQuery(){
           if (typeof appointmentFailUpdate.affectedRows == 'undefined' || appointmentFailUpdate.affectedRows <= 0) {
             console.log('Error while updating fail response status.');
           }
-          // flagCount ++;
-          // if(flagCount == appointmentRows.length){
-          //   await process.exit(1);
-          // }
+          flagCount ++;
+          if(flagCount == totalRecords){
+            await process.exit(0);
+          }
         });
     }
   }	

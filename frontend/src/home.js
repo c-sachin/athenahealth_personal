@@ -85,42 +85,6 @@ class Home extends Component {
       return '';
     }
   }
-
-  renderMasterDataNavs(userType) {
-    if (userType === '0') {
-      // Master User as a Logged in user
-      return (
-        <MDBNavItem>
-          <MDBDropdown>
-            <MDBDropdownToggle nav caret>
-              <i className="fas fa-database fa-fw" /> Master Management
-            </MDBDropdownToggle>
-            <MDBDropdownMenu>
-              <MDBDropdownItem href="/gender">
-                <i className="fas fa-tasks fa-fw" /> Gender Master
-              </MDBDropdownItem>
-              <MDBDropdownItem href="/marital-status">
-                <i className="fas fa-tasks fa-fw" /> Marital Status Master
-              </MDBDropdownItem>
-              <MDBDropdownItem href="/race">
-                <i className="fas fa-tasks fa-fw" /> Race Master
-              </MDBDropdownItem>
-              <MDBDropdownItem href="/imaging">
-                <i className="fas fa-tasks fa-fw" /> Imaging Master
-              </MDBDropdownItem>
-              <MDBDropdownItem href="/diagnosis">
-                <i className="fas fa-tasks fa-fw" /> Diagnosis Master
-              </MDBDropdownItem>
-            </MDBDropdownMenu>
-          </MDBDropdown>
-        </MDBNavItem>
-      );
-    } else {
-      // EPIC User as a logged in user
-      return '';
-    }
-  }
-
   renderChangePassword(userType) {
     if (userType === '0') {
       // Master User as a Logged in user
@@ -178,36 +142,6 @@ class Home extends Component {
                 navbar
               >
                 <MDBNavbarNav right>
-                  <MDBNavItem>
-                    <MDBDropdown>
-                      {/* <MDBDropdownToggle nav caret>
-                        <i
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title=""
-                          className="fas fa-plus-circle"
-                          data-original-title="Add"
-                        />{' '}
-                        Add
-                      </MDBDropdownToggle> */}
-                      {/* <MDBDropdownMenu>
-                        <MDBDropdownItem href="/PatientScreening">
-                          <i className="fas fa-search-plus fa-fw" /> Patient
-                          Screenings
-                        </MDBDropdownItem>
-                        <MDBDropdownItem href="/dailyquery">
-                          <i className="far fa-clock fa-fw" /> Daily Query
-                        </MDBDropdownItem>
-                        <MDBDropdownItem href="/add-chart-review">
-                          <i className="fas fa-chart-bar" /> Chart Review
-                        </MDBDropdownItem>
-                        <MDBDropdownItem href="/before-after-analysis">
-                          <i className="fas fa-chart-line fa-fw" /> Before /
-                          After Analysis
-                        </MDBDropdownItem>
-                      </MDBDropdownMenu> */}
-                    </MDBDropdown>
-                  </MDBNavItem>
                   {this.renderMasterNavs(userType)}
                   <MDBNavItem>
                     <MDBDropdown>

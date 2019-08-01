@@ -2,13 +2,11 @@ require('dotenv').config({path: 'E:/athenahealth/server/.env'})
 const dbMysql = require("../db/dbMysql")
 const axios = require("axios")
 const moment = require("moment")
-var https = require('https')
-var events = require('events') 
-var https = require('https')
 var querystring = require('querystring')
 var version = 'preview1';
 
 main();
+
 async function main() {
     var yesterday = moment().subtract(1, 'days');
     yesterday = yesterday.format("MM/DD/YYYY");
@@ -16,7 +14,7 @@ async function main() {
     var [facilityRows] = await dbMysql.execute(sql);
 
     for (var i = 0; i < facilityRows.length; i++) {
-
+        console.log('f_facility_id-->',facilityRows[i]['f_facility_id']);
         var f_facility_id = facilityRows[i]['f_facility_id'];
         var facility_practice_id = facilityRows[i]['facility_practice_id'];
         var facility_fhir_id = facilityRows[i]['facility_fhir_id'];
@@ -27,25 +25,26 @@ async function main() {
 
         var facility_department_id = '';
 
-        for(var i = 0; i < facilityDeptRows.length; i++){
+        for(var j = 0; j < facilityDeptRows.length; j++){
             if(facilityDeptRows.length > 1){
-                facility_department_id += facilityDeptRows[i]['departmentid']+',';
+                facility_department_id += facilityDeptRows[j]['departmentid']+',';
             }else{
-                facility_department_id = facilityDeptRows[i]['departmentid'];
+                facility_department_id = facilityDeptRows[j]['departmentid'];
             }
         }
 
         facility_department_id = facility_department_id.replace(/,\s*$/, "");
         console.log('department-->',facility_department_id);
-
+        
         var token = await authentication(facility_fhir_id,facility_fhir_secret);
         console.log('token-->',token);
-        if (typeof token !== 'undefined' || token.length > 0) {
+        if (typeof token !== 'undefined' && token.length > 0 && facility_department_id.length > 0) {
             await appointments(token, facility_department_id, facility_practice_id, f_facility_id);
         }else{
-            console.log('Client ID or Secret ID not found');
+            console.log('Client ID or Secret ID or department ID not found.');
         }
     }
+    await process.exit(0);
 }
 
 async function authentication(facility_fhir_id,facility_fhir_secret) {
@@ -60,7 +59,7 @@ async function authentication(facility_fhir_id,facility_fhir_secret) {
     var config = {
         headers:headers
     }
-    var querystring = require('querystring')
+
     var body = querystring.stringify({grant_type: 'client_credentials'})
         
     var { data } = await axios.post(apiUrl, body, config);
@@ -93,12 +92,12 @@ async function appointments(token, facility_department_id, facility_practice_id,
     }
 
     var { data } = await axios.get(apiUrl,config);
-
+    
     var appointmentsArr = data.appointments;
 
     if (typeof appointmentsArr == 'undefined' || appointmentsArr.length <= 0) {
         console.log('Error---->:',data.detailedmessage);
-        return;
+        return 0;
     }
     for(var i = 0; i < appointmentsArr.length; i++)
     {
@@ -128,6 +127,7 @@ async function appointments(token, facility_department_id, facility_practice_id,
         }
         await insertAppointmentData(post);
     } 
+    return 1;
 }
 
 async function insertAppointmentData(post){

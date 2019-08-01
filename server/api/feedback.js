@@ -5,7 +5,7 @@ const axios = require("axios");
 executeQuery();
 
 async function executeQuery() {
-    var selectQuery = 'SELECT a.f_facility_id, a.appointment_id, a.patient_email, f.facility_survey_token, d.facility_survey_campaign_id FROM m_appointment a, m_facility_settings f, m_department d WHERE a.appointment_survey_send_status = 2 AND appointment_feedback_status IN (1,3) AND a.f_facility_id = f.f_facility_id AND f.f_facility_id = d.f_facility_id AND a.departmentid = d.departmentid';
+    var selectQuery = 'SELECT a.f_facility_id, a.appointment_id, a.patient_email, f.facility_survey_token, d.facility_survey_campaign_id FROM m_appointment a, m_facility_settings f, m_department d WHERE a.appointment_survey_send_status = 2 AND a.appointment_feedback_status IN (1,3) AND a.f_facility_id = f.f_facility_id AND f.f_facility_id = d.f_facility_id AND a.departmentid = d.departmentid';
     var appointmentRowsArr = await dbMysql.execute(selectQuery);
 
     if (typeof appointmentRowsArr[0] == 'undefined' || appointmentRowsArr[0].length <= 0) {
@@ -36,7 +36,7 @@ async function executeQuery() {
             var [updateRow] = await dbMysql.query(updateQuery,postdata); 
         }
     }
-    //await process.exit(1);
+    await process.exit(0);
 }
 
 async function getFeedback(facility_survey_token,compaignId, email){
