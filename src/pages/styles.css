@@ -1,0 +1,23 @@
+ul.search-suggestions{
+    position: absolute;
+    height: 200px;
+    width: 800px;
+    overflow-y: scroll;
+    background-color: #ffffff;
+    z-index: 1;
+    list-style-type: none;
+    border: 1px solid blue;
+}
+ul.search-suggestions li{
+    background-color: #f8f8f8;
+    border-top: 1px solid lightgray;
+    cursor: pointer;
+
+    padding: 3px 3px 3px 15px;
+    font-size: 13px;
+}
+ul.search-suggestions li a{
+    padding: 3px 3px 3px 15px;
+    font-size: 13px;
+    background-color: #f8f8f8;
+}
