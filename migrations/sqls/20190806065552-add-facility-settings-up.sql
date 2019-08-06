@@ -1,0 +1,3 @@
+INSERT INTO `m_facility_settings` (`facility_settings_id`, `f_facility_id`, `facility_practice_id`, `facility_survey_token`, `facility_fhir_id`, `facility_fhir_secret`, `facility_is_deleted`, `facility_added_at`) VALUES
+(3, 1, 195900, '775a219e3ab440410b2bbf56dbfa65aa936be878', '7kqmv92gekvzcbrcyeew6t9k', 'khu7mhsg7gFAnmw', 0, NULL),
+(4, 2, 195900, '775a219e3ab440410b2bbf56dbfa65aa936be878', '7kqmv92gekvzcbrcyeew6t9k', 'khu7mhsg7gFAnmw', 0, NULL);

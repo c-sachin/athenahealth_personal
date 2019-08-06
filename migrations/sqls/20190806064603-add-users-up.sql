@@ -1,0 +1,2 @@
+INSERT INTO `m_users` (`user_id`, `user_name`, `user_email`, `user_pwd`, `m_added`, `is_deleted`, `remember_token`) VALUES
+(1, 'Admin', 'admin@admin.com', '$2b$10$syreMFqhVnbrdZ4Ngm6vKORrEdfbMcRGGEWo/owzyJWKKsMgJ0e9i', NULL, 0, NULL);
