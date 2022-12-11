@@ -23,7 +23,7 @@
         "debug": "^3.2.6",
         "dotenv": "^8.0.0",
         "es6-promise": "^4.2.4",
-        "express": "^4.16.4",
+        "express": "^4.17.3",
         "express-session": "^1.16.1",
         "g": "^2.0.1",
         "localStorage": "^1.0.4",
